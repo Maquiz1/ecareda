@@ -14,3 +14,4 @@ class VisitAdmin(SimpleHistoryAdmin):
     list_display = ("patient", "visit_number", "visit_type", "visit_date")
     list_filter = ("visit_type", "visit_date")
     inlines = [FormResponseInline]
+    
