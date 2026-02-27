@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'patients',
     'visits',
     'forms_builder',
+    'core',
 ]
 
 MIDDLEWARE = [

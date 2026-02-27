@@ -3,8 +3,11 @@ from organizations.models import Organization
 from sites.models import Site
 from projects.models import Project
 from simple_history.models import HistoricalRecords
+from core.models import TenantModel
+from core.models import TenantAuditModel
 
-class Patient(models.Model):
+
+class Patient(TenantAuditModel):
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
     site = models.ForeignKey(Site, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)

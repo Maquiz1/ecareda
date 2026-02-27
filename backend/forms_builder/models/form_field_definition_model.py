@@ -1,6 +1,7 @@
 from django.db import models
 from simple_history.models import HistoricalRecords
 from . form_definition_model import FormDefinition
+from django.conf import settings
 
 class FormFieldDefinition(models.Model):
 
