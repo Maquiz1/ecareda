@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import environ
 import os
 from pathlib import Path
+import ast
+from django.contrib.messages import constants as messages
+from tzlocal import get_localzone  # make sure tzlocal is installed in your venv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,6 +33,17 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+if DEBUG:
+    # For development, allow localhost and 127.0.0.1
+    ALLOWED_HOSTS = ast.literal_eval(env("ALLOWED_HOSTS", default="[]"))
+else:
+    # In production, read from environment variable
+    # ALLOWED_HOSTS = env("ALLOWED_HOSTS", default="").split(",")
+    ALLOWED_HOSTS = [
+    host.strip()
+    for host in env("ALLOWED_HOSTS", default="").split(",")
+    if host.strip()
+]
 
 # ALLOWED_HOSTS = []
 SECRET_KEY = env('ALLOWED_HOSTS')
