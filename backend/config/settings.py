@@ -32,7 +32,8 @@ env.read_env(BASE_DIR / ".env")
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = env.bool("DEBUG", default=False)
 if DEBUG:
     # For development, allow localhost and 127.0.0.1
     ALLOWED_HOSTS = ast.literal_eval(env("ALLOWED_HOSTS", default="[]"))
@@ -160,3 +161,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+LOGIN_REDIRECT_URL = "/subjects/"
+LOGOUT_REDIRECT_URL = "/accounts/login/"

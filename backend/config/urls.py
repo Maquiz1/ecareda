@@ -21,5 +21,9 @@ urlpatterns = [
     path("", include("subjects.urls")),
     path("subjects/", include("subjects.urls")),
     path("visits/", include("visits.urls")),
+    
+    # 🔐 Django built-in auth URLs
+    path("accounts/", include("django.contrib.auth.urls")),
+    
     path('admin/', admin.site.urls),
 ]
