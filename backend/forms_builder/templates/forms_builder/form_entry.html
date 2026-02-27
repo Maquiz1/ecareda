@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>{{ form_response.form.name }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+
+    {% for field in fields %}
+        <div class="mb-3">
+            <label class="form-label">{{ field.label }}</label>
+
+            <input type="text"
+                   name="{{ field.id }}"
+                   class="form-control"
+                   value="{{ values|get_item:field.id }}">
+        </div>
+    {% endfor %}
+
+    <button class="btn btn-success">Save</button>
+</form>
+
+{% endblock %}

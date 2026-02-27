@@ -11,7 +11,7 @@ class FormResponseInline(admin.TabularInline):
 
 @admin.register(Visit)
 class VisitAdmin(SimpleHistoryAdmin):
-    list_display = ("patient", "visit_number", "visit_type", "visit_date")
+    list_display = ("subject", "visit_number", "visit_type", "visit_date")
     list_filter = ("visit_type", "visit_date")
     inlines = [FormResponseInline]
     

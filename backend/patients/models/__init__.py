@@ -1,1 +1,0 @@
-from .patients_model import *

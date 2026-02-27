@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Visit {{ visit.visit_number }} ({{ visit.visit_type }})</h1>
+
+<p>Status: {{ visit.status }}</p>
+
+<h2>Forms</h2>
+<a href="{% url 'visit_create' subject.pk %}" class="btn btn-primary mb-3">
+    Add Visit
+</a>
+<table border="1">
+<tr>
+    <th>Form</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+
+{% for form in forms %}
+<tr>
+    <td>{{ form.form.name }}</td>
+    <td>{{ form.status }}</td>
+    <td>
+        <a href="{% url 'form_entry' form.pk %}" class="btn btn-sm btn-outline-primary">
+            Open
+        </a>
+    </td>
+</tr>
+{% endfor %}
+
+</table>
+
+{% endblock %}

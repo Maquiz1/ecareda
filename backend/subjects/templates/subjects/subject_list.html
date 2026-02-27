@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Subjects</h1>
+<a href="{% url 'subject_create' %}" class="btn btn-primary mb-3">
+    Add Subject
+</a>
+<table border="1">
+<tr>
+    <th>Subject ID</th>
+    <th>Project</th>
+    <th>Action</th>
+</tr>
+
+{% for subject in subjects %}
+<tr>
+    <td>{{ subject.subject_id }}</td>
+    <td>{{ subject.project.name }}</td>
+    <td>
+        <a href="{% url 'subject_detail' subject.pk %}">View</a>
+    </td>
+</tr>
+{% endfor %}
+
+</table>
+
+{% endblock %}

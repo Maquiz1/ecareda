@@ -7,7 +7,7 @@ from core.models import TenantModel
 from core.models import TenantAuditModel
 
 
-class Patient(TenantAuditModel):
+class Subject(TenantAuditModel):
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
     site = models.ForeignKey(Site, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)

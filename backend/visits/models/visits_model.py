@@ -3,7 +3,7 @@ from django.conf import settings
 from simple_history.models import HistoricalRecords
 from django.apps import apps
 
-from patients.models import Patient
+from subjects.models import Subject
 from constants.visit_types_constants import VISIT_TYPES
 
 
@@ -16,8 +16,8 @@ class Visit(models.Model):
         ("locked", "Locked"),
     )
 
-    patient = models.ForeignKey(
-        Patient,
+    subject = models.ForeignKey(
+        Subject,
         on_delete=models.CASCADE
     )
 
@@ -55,7 +55,7 @@ class Visit(models.Model):
     history = HistoricalRecords()
 
     class Meta:
-        unique_together = ("patient", "visit_number")
+        unique_together = ("subject", "visit_number")
         ordering = ["visit_date"]
 
     def save(self, *args, **kwargs):
@@ -79,7 +79,7 @@ class Visit(models.Model):
             )
 
             assignments = VisitTypeFormAssignment.objects.filter(
-                project=self.patient.project,
+                project=self.subject.project,
                 visit_type=self.visit_type
             )
 
@@ -90,4 +90,4 @@ class Visit(models.Model):
                 )
 
     def __str__(self):
-        return f"{self.patient.subject_id} - Visit {self.visit_number}"
+        return f"{self.subject.subject_id} - Visit {self.visit_number}"

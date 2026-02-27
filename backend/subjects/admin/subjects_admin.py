@@ -1,10 +1,10 @@
 from django.contrib import admin
 from simple_history.admin import SimpleHistoryAdmin
-from ..models import Patient
+from ..models import Subject
 
 
-@admin.register(Patient)
-class PatientAdmin(SimpleHistoryAdmin):
+@admin.register(Subject)
+class SubjectAdmin(SimpleHistoryAdmin):
     list_display = (
         "subject_id",
         "project",
