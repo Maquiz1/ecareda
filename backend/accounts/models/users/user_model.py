@@ -1,5 +1,3 @@
-# accounts/models/users/user_model.py
-
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from organizations.models import Organization
@@ -22,7 +20,6 @@ class User(AbstractUser):
         blank=True
     )
 
-    # EDC roles
     is_data_manager = models.BooleanField(default=False)
     is_monitor = models.BooleanField(default=False)
     is_pi = models.BooleanField(default=False)
