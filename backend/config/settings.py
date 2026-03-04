@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     'visits',
     'forms_builder',
     'core',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -173,3 +174,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = "/subjects/"
 LOGOUT_REDIRECT_URL = "/accounts/login/"
+
+# AUTH_USER_MODEL = "accounts.User"
