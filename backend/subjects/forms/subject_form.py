@@ -2,6 +2,7 @@ from django import forms
 from subjects.models import Subject
 from projects.models import Project
 from sites.models import Site
+from core.forms.tenant_model_form import TenantModelForm
 
 # class SubjectForm(forms.ModelForm):
 #     class Meta:
@@ -9,7 +10,7 @@ from sites.models import Site
 #         fields = ["subject_id", "project"]
         
         
-class SubjectForm(forms.ModelForm):
+class SubjectForm(TenantModelForm):
 
     class Meta:
         model = Subject
