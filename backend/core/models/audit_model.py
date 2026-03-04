@@ -1,7 +1,10 @@
 from django.db import models
 from django.conf import settings
+from core.tenant import get_current_user
+
 
 class AuditModel(models.Model):
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -23,3 +26,16 @@ class AuditModel(models.Model):
 
     class Meta:
         abstract = True
+
+    def save(self, *args, **kwargs):
+
+        user = get_current_user()
+
+        if user and user.is_authenticated:
+
+            if not self.pk and not self.created_by:
+                self.created_by = user
+
+            self.updated_by = user
+
+        super().save(*args, **kwargs)
