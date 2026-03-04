@@ -37,6 +37,7 @@ DEBUG = env.bool("DEBUG", default=False)
 if DEBUG:
     # For development, allow localhost and 127.0.0.1
     ALLOWED_HOSTS = ast.literal_eval(env("ALLOWED_HOSTS", default="[]"))
+    # CONN_MAX_AGE = 0
 else:
     # In production, read from environment variable
     # ALLOWED_HOSTS = env("ALLOWED_HOSTS", default="").split(",")
@@ -117,6 +118,12 @@ DATABASES = {
         'PASSWORD': env('DB_PASSWORD'),
         'HOST': env('DB_HOST', default='localhost'),
         'PORT': env('DB_PORT', default='5432'),
+        "CONN_MAX_AGE": 0,  # 🔥 VERY IMPORTANT FOR DEV
+        # IMPORTANT FIX
+        # "CONN_MAX_AGE": 0,
+        # "OPTIONS": {
+        #     "server_side_cursors": False,
+        # },
     }
 }
 
