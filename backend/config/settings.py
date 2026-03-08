@@ -48,12 +48,13 @@ else:
 ]
 
 # ALLOWED_HOSTS = []
-SECRET_KEY = env('ALLOWED_HOSTS')
+# SECRET_KEY = env('ALLOWED_HOSTS')
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    # 'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -72,8 +73,9 @@ INSTALLED_APPS = [
     'visits',
     'forms_builder',
     'core',
-    'accounts',
 ]
+
+# AUTH_USER_MODEL = "accounts.User"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -153,7 +155,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
+TIME_ZONE = str(get_localzone())
 
 USE_I18N = True
 
@@ -174,5 +177,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = "/subjects/"
 LOGOUT_REDIRECT_URL = "/accounts/login/"
-
-# AUTH_USER_MODEL = "accounts.User"
