@@ -1,0 +1,14 @@
+<!-- dashboard/templates/dashboard/dashboard.html -->
+ 
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Dashboard</h1>
+<p>Welcome to the dashboard! Here you can see an overview of your projects, subjects, and recent activity.</p>  
+<ul>
+    <li><a href="{% url 'subjects:subject_list' %}">View Subjects</a></li>
+    <li><a href="{% url 'projects:project_list' %}">View Projects</a></li>
+    <li><a href="{% url 'visits:visit_list' %}">View Visits</a></li>
+    <li><a href="{% url 'forms_builder:form_list' %}">View Forms</a></li>
+</ul>
+{% endblock %}
