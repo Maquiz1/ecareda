@@ -4,9 +4,10 @@ from simple_history.models import HistoricalRecords
 from django.apps import apps
 
 from .form_definition_model import FormDefinition
+from core.models import SoftDeleteModel
 
 
-class FormResponse(models.Model):
+class FormResponse(SoftDeleteModel):
 
     STATUS_CHOICES = (
         ("draft", "Draft"),

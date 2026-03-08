@@ -1,33 +1,79 @@
 {% extends "base.html" %}
+
 {% block content %}
 
-<h1>Visit {{ visit.visit_number }} ({{ visit.visit_type }})</h1>
+<div class="container mt-4">
 
-<p>Status: {{ visit.status }}</p>
+    <h2>
+        Subject {{ visit.subject.subject_id }} —
+        Visit {{ visit.visit_number }}
+    </h2>
 
-<h2>Forms</h2>
-<a href="{% url 'visit_create' subject.pk %}" class="btn btn-primary mb-3">
-    Add Visit
-</a>
-<table border="1">
-<tr>
-    <th>Form</th>
-    <th>Status</th>
-    <th>Action</th>
-</tr>
+    <div class="card shadow-sm mt-3">
 
-{% for form in forms %}
-<tr>
-    <td>{{ form.form.name }}</td>
-    <td>{{ form.status }}</td>
-    <td>
-        <a href="{% url 'form_entry' form.pk %}" class="btn btn-sm btn-outline-primary">
-            Open
-        </a>
-    </td>
-</tr>
-{% endfor %}
+        <div class="card-header">
+            <strong>Forms</strong>
+        </div>
 
-</table>
+        <div class="card-body">
+
+            {% if forms %}
+
+            <table class="table table-bordered">
+
+                <thead>
+                    <tr>
+                        <th>Form</th>
+                        <th>Status</th>
+                        <th width="120">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                {% for response in forms %}
+
+                <tr>
+
+                    <td>{{ response.form.name }}</td>
+
+                    <td>
+                        {% if response.is_completed %}
+                            <span class="badge bg-success">Completed</span>
+                        {% else %}
+                            <span class="badge bg-warning">Pending</span>
+                        {% endif %}
+                    </td>
+
+                    <td>
+
+                        <a href="{% url 'forms:form_fill' response.pk %}"
+                           class="btn btn-sm btn-primary">
+                           Open
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+            {% else %}
+
+            <div class="text-muted">
+                No forms assigned to this visit.
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}

@@ -1,5 +1,5 @@
 from django.urls import path
-from visits.views import VisitListView,VisitDetailView,VisitCreateView,UnscheduledVisitCreateView
+from visits.views import VisitListView,VisitDetailView,VisitCreateView,UnscheduledVisitCreateView,VisitDetailView
 
 app_name = "visits"
 
@@ -12,5 +12,11 @@ urlpatterns = [
         "unscheduled/<int:subject_id>/",
         UnscheduledVisitCreateView.as_view(),
         name="unscheduled_visit_create",
+    ),
+    
+    path(
+        "<int:pk>/",
+        VisitDetailView.as_view(),
+        name="visit_detail"
     )
 ]
