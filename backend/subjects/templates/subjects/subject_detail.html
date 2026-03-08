@@ -1,25 +1,113 @@
 {% extends "base.html" %}
+
 {% block content %}
 
-<h1>Subjects</h1>
+<div class="container mt-4">
 
-<table border="1">
-<tr>
-    <th>Subject ID</th>
-    <th>Project</th>
-    <th>Action</th>
-</tr>
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Subject Details</h2>
 
-{% for subject in subjects %}
-<tr>
-    <td>{{ subject.subject_id }}</td>
-    <td>{{ subject.project.name }}</td>
-    <td>
-        <a href="{% url 'subject_detail' subject.pk %}">View</a>
-    </td>
-</tr>
-{% endfor %}
+        <a href="{% url 'subjects:subject_list' %}" class="btn btn-secondary">
+            ← Back to Subjects
+        </a>
+    </div>
 
-</table>
+
+    <!-- Subject Info Card -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-light">
+            <strong>Subject Information</strong>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row mb-2">
+                <div class="col-md-4"><strong>Subject ID</strong></div>
+                <div class="col-md-8">{{ subject.subject_id }}</div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4"><strong>Project</strong></div>
+                <div class="col-md-8">{{ subject.project.name }}</div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4"><strong>Organization</strong></div>
+                <div class="col-md-8">{{ subject.organization.name }}</div>
+            </div>
+
+            <div class="row mb-2">
+                <div class="col-md-4"><strong>Created</strong></div>
+                <div class="col-md-8">{{ subject.created_at }}</div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Visits -->
+    <div class="card shadow-sm">
+
+        <div class="card-header d-flex justify-content-between align-items-center">
+
+            <strong>Visits</strong>
+
+            <a href="{% url 'visits:visit_create' subject.pk %}" class="btn btn-primary btn-sm">
+                + Add Visit
+            </a>
+
+        </div>
+
+        <div class="card-body">
+
+            {% if visits %}
+
+            <table class="table table-bordered table-hover">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>Visit Number</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th width="120">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                {% for visit in visits %}
+                <tr>
+
+                    <td>{{ visit.visit_number }}</td>
+                    <td>{{ visit.date }}</td>
+                    <td>{{ visit.status }}</td>
+
+                    <td>
+                        <a href="{% url 'visits:visit_detail' visit.pk %}" class="btn btn-sm btn-outline-primary">
+                            View
+                        </a>
+                    </td>
+
+                </tr>
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+            {% else %}
+
+            <div class="text-muted">
+                No visits recorded for this subject.
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}
