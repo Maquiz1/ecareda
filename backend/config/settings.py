@@ -54,7 +54,7 @@ else:
 # Application definition
 
 INSTALLED_APPS = [
-    # 'accounts',
+    'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -68,14 +68,13 @@ INSTALLED_APPS = [
     'countries',
     'sites',
     'projects',
-    # 'patients',
     'subjects',
     'visits',
     'forms_builder',
     'core',
 ]
 
-# AUTH_USER_MODEL = "accounts.User"
+AUTH_USER_MODEL = "accounts.User"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -94,7 +93,6 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # 'DIRS': [],
         "DIRS": [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
