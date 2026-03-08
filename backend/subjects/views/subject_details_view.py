@@ -1,7 +1,7 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import DetailView
-from subjects.models import Subject
-from visits.models import Visit
+# from django.contrib.auth.mixins import LoginRequiredMixin
+# from django.views.generic import DetailView
+# from subjects.models import Subject
+# from visits.models import Visit
 
 
 # class SubjectDetailView(LoginRequiredMixin, DetailView):

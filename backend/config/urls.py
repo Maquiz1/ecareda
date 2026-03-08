@@ -18,14 +18,15 @@ from django.contrib import admin
 from django.urls import path,include
 
 urlpatterns = [
-    path("", include("subjects.urls")),
+    # path("", include("subjects.urls")),
     path("subjects/", include("subjects.urls")),
     path("visits/", include("visits.urls")),
     path("forms/", include("forms_builder.urls")),
     path("projects/", include("projects.urls")),
     
     # 🔐 Django built-in auth URLs
-    path("accounts/", include("django.contrib.auth.urls")),
+    # path("accounts/", include("django.contrib.auth.urls")),
+    path("accounts/", include("accounts.urls")),
     
     path('admin/', admin.site.urls),
 ]

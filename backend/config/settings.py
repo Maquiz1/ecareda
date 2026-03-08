@@ -74,6 +74,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    "core.middleware.organization_middleware.OrganizationRequiredMiddleware",         # To ensure that the user belongs to an organization before accessing any view
     "core.middleware.tenant_middleware.TenantMiddleware",    # To set the current user in thread local storage for tenant-aware access control
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -165,5 +166,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+LOGIN_URL = "/accounts/login/"
 LOGIN_REDIRECT_URL = "/subjects/"
 LOGOUT_REDIRECT_URL = "/accounts/login/"
