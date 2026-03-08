@@ -2,7 +2,7 @@
 {% block content %}
 
 <h1>Subjects</h1>
-<a href="{% url 'subject_create' %}" class="btn btn-primary mb-3">
+<a href="{% url 'subjects:subject_create' %}" class="btn btn-primary mb-3">
     Add Subject
 </a>
 <table border="1">
@@ -17,7 +17,7 @@
     <td>{{ subject.subject_id }}</td>
     <td>{{ subject.project.name }}</td>
     <td>
-        <a href="{% url 'subject_detail' subject.pk %}">View</a>
+        <a href="{% url 'subjects:subject_detail' subject.pk %}">View</a>
     </td>
 </tr>
 {% endfor %}

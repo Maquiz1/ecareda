@@ -1,0 +1,17 @@
+<!-- forms_builder_page.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Form List</h1>
+<ul>
+    {% for form in forms %}
+    <li>
+        <a href="{% url 'forms_builder:form_entry' form.pk %}">
+            {{ form.name }} - Created on {{ form.created_at }}
+        </a>
+    </li>    
+    {% empty %}
+    <li>No forms found.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

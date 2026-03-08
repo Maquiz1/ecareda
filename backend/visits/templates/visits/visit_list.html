@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Visit List</h1>
+<ul>
+    {% for visit in visits %}
+    <li>
+        <a href="{% url 'visits:visit_detail' visit.pk %}">
+            {{ visit.subject.name }} - {{ visit.visit_date }}
+        </a>
+    </li>
+    {% empty %}
+    <li>No visits found.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

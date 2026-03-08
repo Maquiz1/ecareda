@@ -1,0 +1,8 @@
+<!-- project_detail.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ project.name }}</h1>
+<p>Created on: {{ project.created_at }}</p>
+<p>Description: {{ project.description }}</p>
+{% endblock %}

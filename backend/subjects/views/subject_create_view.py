@@ -8,4 +8,4 @@ class SubjectCreateView(TenantCreateView):
     model = Subject
     form_class = SubjectForm
     template_name = "subjects/subject_form.html"
-    success_url = reverse_lazy("subject_list")
+    success_url = reverse_lazy("subjects:subject_list")

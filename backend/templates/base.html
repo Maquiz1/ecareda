@@ -54,10 +54,10 @@
 
             <h6 class="text-white text-uppercase px-3 mt-4">Navigation</h6>
 
-            <a href="{% url 'subject_list' %}">Subjects</a>
-            <a href="#">Projects</a>
-            <a href="#">Visits</a>
-            <a href="#">Forms</a>
+            <a href="{% url 'subjects:subject_list' %}">Subjects</a>
+            <a href="{% url 'projects:project_list' %}">Projects</a>
+            <a href="{% url 'visits:visit_list' %}">Visits</a>
+            <a href="{% url 'forms_builder:form_list' %}">Forms</a>
             {% if user.is_superuser %}
             <!-- Manuals -->
             <a href="{% url 'admin:index' %}"><i class="fas fa-book"></i><span> Admin Panel</span></a>
