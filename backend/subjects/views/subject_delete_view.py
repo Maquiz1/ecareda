@@ -1,20 +1,24 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from django.contrib import messages
-from django.views import View
+from django.views.generic import DeleteView
 
 from subjects.models import Subject
 from core.mixins import TenantQuerysetMixin
 
 
-class SubjectDeleteView(LoginRequiredMixin, TenantQuerysetMixin, View):
+class SubjectDeleteView(LoginRequiredMixin, TenantQuerysetMixin, DeleteView):
 
-    def post(self, request, pk):
-        subject = get_object_or_404(self.get_queryset(), pk=pk)
+    model = Subject
+    success_url = reverse_lazy("subjects:subject_list")
 
-        subject.is_deleted = True
-        subject.save()
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+
+        # Soft delete
+        self.object.delete()
 
         messages.success(request, "Subject deleted successfully.")
 
-        return redirect("subjects:subject_list")
+        return redirect(self.success_url)

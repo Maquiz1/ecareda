@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>eCareda EDC</title>
@@ -11,74 +12,113 @@
         body {
             overflow-x: hidden;
         }
+
         .sidebar {
             height: 100vh;
             background-color: #1e293b;
         }
+
         .sidebar a {
             color: #cbd5e1;
             text-decoration: none;
             display: block;
             padding: 12px 20px;
         }
+
         .sidebar a:hover {
             background-color: #334155;
             color: white;
         }
+
         .navbar-custom {
             background-color: #0f172a;
         }
+
+        .timeline {
+            list-style: none;
+            padding-left: 0;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 12px;
+            width: 2px;
+            height: 100%;
+            background: #dee2e6;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+            padding-left: 40px;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+        }
+
+        .timeline-content {
+            padding: 5px 10px;
+        }
     </style>
 </head>
+
 <body>
 
-<!-- 🔝 NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
-    <div class="container-fluid">
-        <a class="navbar-brand fw-bold" href="#">eCareda EDC</a>
+    <!-- 🔝 NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="#">eCareda EDC</a>
 
-        <div class="d-flex align-items-center text-white">
-            {% if user.is_authenticated %}
+            <div class="d-flex align-items-center text-white">
+                {% if user.is_authenticated %}
                 <span class="me-3">Welcome, {{ user.username }}</span>
                 <a href="/admin/logout/" class="btn btn-sm btn-outline-light">Logout</a>
-            {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- 📚 SIDEBAR -->
+            <div class="col-md-2 sidebar p-0">
+
+                <h6 class="text-white text-uppercase px-3 mt-4">Navigation</h6>
+
+                <a href="{% url 'subjects:subject_list' %}">Subjects</a>
+                <a href="{% url 'projects:project_list' %}">Projects</a>
+                <a href="{% url 'visits:visit_list' %}">Visits</a>
+                <a href="{% url 'forms_builder:form_list' %}">Forms</a>
+                {% if user.is_superuser %}
+                <!-- Manuals -->
+                <a href="{% url 'admin:index' %}"><i class="fas fa-book"></i><span> Admin Panel</span></a>
+                {% endif %}
+                <hr class="bg-light">
+
+                <h6 class="text-white text-uppercase px-3">Study</h6>
+                <a href="{% url 'dashboard:dashboard' %}">Dashboard</a>
+                <a href="#">Reports</a>
+                <a href="#">Monitoring</a>
+
+            </div>
+
+            <!-- 📄 MAIN CONTENT -->
+            <div class="col-md-10 p-4">
+                {% block content %}
+                {% endblock %}
+            </div>
+
         </div>
     </div>
-</nav>
-
-<div class="container-fluid">
-    <div class="row">
-
-        <!-- 📚 SIDEBAR -->
-        <div class="col-md-2 sidebar p-0">
-
-            <h6 class="text-white text-uppercase px-3 mt-4">Navigation</h6>
-
-            <a href="{% url 'subjects:subject_list' %}">Subjects</a>
-            <a href="{% url 'projects:project_list' %}">Projects</a>
-            <a href="{% url 'visits:visit_list' %}">Visits</a>
-            <a href="{% url 'forms_builder:form_list' %}">Forms</a>
-            {% if user.is_superuser %}
-            <!-- Manuals -->
-            <a href="{% url 'admin:index' %}"><i class="fas fa-book"></i><span> Admin Panel</span></a>
-            {% endif %}
-            <hr class="bg-light">
-
-            <h6 class="text-white text-uppercase px-3">Study</h6>
-            <a href="{% url 'dashboard:dashboard' %}">Dashboard</a>
-            <a href="#">Reports</a>
-            <a href="#">Monitoring</a>
-
-        </div>
-
-        <!-- 📄 MAIN CONTENT -->
-        <div class="col-md-10 p-4">
-            {% block content %}
-            {% endblock %}
-        </div>
-
-    </div>
-</div>
 
 </body>
+
 </html>

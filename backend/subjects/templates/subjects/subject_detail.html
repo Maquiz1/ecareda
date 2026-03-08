@@ -14,7 +14,7 @@
     </div>
 
 
-    <!-- Subject Info Card -->
+    <!-- Subject Info -->
     <div class="card shadow-sm mb-4">
         <div class="card-header bg-light">
             <strong>Subject Information</strong>
@@ -38,8 +38,8 @@
             </div>
 
             <div class="row mb-2">
-                <div class="col-md-4"><strong>Created</strong></div>
-                <div class="col-md-8">{{ subject.created_at }}</div>
+                <div class="col-md-4"><strong>Enrollment Date</strong></div>
+                <div class="col-md-8">{{ subject.enrollment_date }}</div>
             </div>
 
         </div>
@@ -53,9 +53,91 @@
 
             <strong>Visits</strong>
 
-            <a href="{% url 'visits:visit_create' subject.pk %}" class="btn btn-primary btn-sm">
-                + Add Visit
-            </a>
+            <div class="d-flex gap-2">
+
+                <a href="{% url 'visits:visit_create' subject.pk %}" class="btn btn-primary btn-sm">
+                    + Add Scheduled Visit
+                </a>
+
+                <form method="post" action="{% url 'visits:unscheduled_visit_create' subject.pk %}"
+                    style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-warning btn-sm">
+                        + Unscheduled Visit
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+
+        <div class="card shadow-sm mb-4">
+
+            <div class="card-header bg-light">
+                <strong>Visit Timeline</strong>
+            </div>
+
+            <div class="card-body">
+
+                <ul class="timeline">
+
+                    {% for visit in visits %}
+
+                    <li class="timeline-item">
+
+                        <div class="timeline-marker
+                    {% if visit.status == 'completed' %}
+                        bg-success
+                    {% elif visit.status == 'open' %}
+                        bg-warning
+                    {% elif visit.status == 'locked' %}
+                        bg-dark
+                    {% else %}
+                        bg-secondary
+                    {% endif %}
+                "></div>
+
+                        <div class="timeline-content">
+
+                            <strong>
+                                Visit {{ visit.visit_number }} —
+                                {{ visit.get_visit_type_display }}
+                            </strong>
+
+                            <div class="text-muted small">
+                                {{ visit.visit_date }}
+                            </div>
+
+                            <span class="badge
+                        {% if visit.status == 'completed' %}
+                            bg-success
+                        {% elif visit.status == 'open' %}
+                            bg-warning
+                        {% elif visit.status == 'locked' %}
+                            bg-dark
+                        {% else %}
+                            bg-secondary
+                        {% endif %}
+                    ">
+                                {{ visit.status }}
+                            </span>
+
+                            <div class="mt-1">
+                                <a href="{% url 'visits:visit_detail' visit.pk %}"
+                                    class="btn btn-sm btn-outline-primary">
+                                    Open Visit
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
 
         </div>
 
@@ -67,7 +149,8 @@
 
                 <thead class="table-light">
                     <tr>
-                        <th>Visit Number</th>
+                        <th>Visit #</th>
+                        <th>Visit Type</th>
                         <th>Date</th>
                         <th>Status</th>
                         <th width="120">Action</th>
@@ -76,21 +159,22 @@
 
                 <tbody>
 
-                {% for visit in visits %}
-                <tr>
+                    {% for visit in visits %}
+                    <tr>
 
-                    <td>{{ visit.visit_number }}</td>
-                    <td>{{ visit.date }}</td>
-                    <td>{{ visit.status }}</td>
+                        <td>{{ visit.visit_number }}</td>
+                        <td>{{ visit.get_visit_type_display }}</td>
+                        <td>{{ visit.visit_date }}</td>
+                        <td>{{ visit.status }}</td>
 
-                    <td>
-                        <a href="{% url 'visits:visit_detail' visit.pk %}" class="btn btn-sm btn-outline-primary">
-                            View
-                        </a>
-                    </td>
+                        <td>
+                            <a href="{% url 'visits:visit_detail' visit.pk %}" class="btn btn-sm btn-outline-primary">
+                                View
+                            </a>
+                        </td>
 
-                </tr>
-                {% endfor %}
+                    </tr>
+                    {% endfor %}
 
                 </tbody>
 

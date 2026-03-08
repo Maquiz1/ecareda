@@ -7,6 +7,10 @@ class SoftDeleteModel(models.Model):
     class Meta:
         abstract = True
 
-    def delete(self, *args, **kwargs):
+    # def delete(self, *args, **kwargs):
+    #     self.is_deleted = True
+    #     self.save()
+        
+    def delete(self, using=None, keep_parents=False):
         self.is_deleted = True
-        self.save()
+        self.save(update_fields=["is_deleted"])

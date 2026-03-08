@@ -15,15 +15,27 @@ class Visit(models.Model):
         ("verified", "Verified"),
         ("locked", "Locked"),
     )
+    
+    VISIT_CATEGORY = (
+        ("scheduled", "Scheduled"),
+        ("unscheduled", "Unscheduled"),
+    )
 
     subject = models.ForeignKey(
         Subject,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name="visits"
     )
 
     visit_type = models.CharField(
         max_length=50,
         choices=VISIT_TYPES
+    )
+    
+    visit_category = models.CharField(
+        max_length=20,
+        choices=VISIT_CATEGORY,
+        default="scheduled"
     )
 
     visit_number = models.PositiveIntegerField()
