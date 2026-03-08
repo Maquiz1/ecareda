@@ -1,7 +1,8 @@
 from django.views import View
 from django.shortcuts import render, redirect, get_object_or_404
+
 from forms_builder.models import FormResponse, FieldValue
-from django.utils import timezone
+from ..forms import DynamicFormEntry
 
 
 class FormEntryView(View):
@@ -9,42 +10,55 @@ class FormEntryView(View):
     template_name = "forms_builder/form_entry.html"
 
     def get(self, request, pk):
+
         form_response = get_object_or_404(FormResponse, pk=pk)
 
-        # fields = form_response.form.field_values.all()
-        fields = form_response.form.formfielddefinition_set.all()
-
         existing_values = {
-            fv.field_id: fv.value
+            str(fv.field_id): fv.value
             for fv in FieldValue.objects.filter(form_response=form_response)
-            # for fv in FieldValue.objects.filter(response=form_response)
         }
+
+        form = DynamicFormEntry(
+            form=form_response.form,
+            values=existing_values,
+            request=request
+        )
 
         return render(request, self.template_name, {
             "form_response": form_response,
-            "fields": fields,
-            "values": existing_values
+            "form": form
         })
 
+
     def post(self, request, pk):
+
         form_response = get_object_or_404(FormResponse, pk=pk)
 
         if form_response.status == "locked":
-            return redirect("visit_detail", pk=form_response.visit.pk)
+            return redirect("visits:visit_detail", pk=form_response.visit.pk)
 
-        fields = form_response.form.field_values.all()
-        # fields = form_response.form.formfielddefinition_set.all()
+        form = DynamicFormEntry(
+            request.POST,
+            form=form_response.form,
+            request=request
+        )
 
-        for field in fields:
-            value = request.POST.get(str(field.id))
+        if form.is_valid():
 
-            FieldValue.objects.update_or_create(
-                form_response=form_response,
-                field=field,
-                defaults={"value": value}
-            )
+            for field_id, value in form.cleaned_data.items():
 
-        form_response.status = "completed"
-        form_response.save()
+                FieldValue.objects.update_or_create(
+                    form_response=form_response,
+                    field_id=field_id,
+                    defaults={"value": value}
+                )
 
-        return redirect("visit_detail", pk=form_response.visit.pk)
+            form_response.status = "completed"
+            form_response.save()
+
+            return redirect("visits:visit_detail", pk=form_response.visit.pk)
+
+        return render(request, self.template_name, {
+            "form_response": form_response,
+            "form": form
+        })

@@ -1,13 +1,9 @@
 # core/forms/tenant_model_form.py
 
 from django import forms
+from core.forms.bootstrap_mixin import BootstrapTenantMixin
 
-class TenantModelForm(forms.ModelForm):
-    """
-    Base form for tenant-aware models.
-    - Restricts queryset fields to the user's organization
-    - Automatically applies Bootstrap styling
-    """
+class TenantModelForm(BootstrapTenantMixin, forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
 
@@ -15,50 +11,65 @@ class TenantModelForm(forms.ModelForm):
 
         super().__init__(*args, **kwargs)
 
-        user = getattr(self.request, "user", None)
+        self.apply_tenant_and_style()
+        
+# class TenantModelForm(forms.ModelForm):
+#     """
+#     Base form for tenant-aware models.
+#     - Restricts queryset fields to the user's organization
+#     - Automatically applies Bootstrap styling
+#     """
 
-        for name, field in self.fields.items():
+#     def __init__(self, *args, **kwargs):
 
-            # -----------------------------
-            # 1️⃣ Tenant filtering
-            # -----------------------------
-            if hasattr(field, "queryset") and user:
+#         self.request = kwargs.pop("request", None)
 
-                model = field.queryset.model
+#         super().__init__(*args, **kwargs)
 
-                if hasattr(model, "organization") and hasattr(user, "organization"):
+#         user = getattr(self.request, "user", None)
 
-                    field.queryset = field.queryset.filter(
-                        organization=user.organization
-                    )
+#         for name, field in self.fields.items():
 
-            # -----------------------------
-            # 2️⃣ Bootstrap styling
-            # -----------------------------
-            if isinstance(field.widget, forms.CheckboxInput):
+#             # -----------------------------
+#             # 1️⃣ Tenant filtering
+#             # -----------------------------
+#             if hasattr(field, "queryset") and user:
 
-                field.widget.attrs["class"] = "form-check-input"
+#                 model = field.queryset.model
 
-            elif isinstance(field.widget, forms.Select):
+#                 if hasattr(model, "organization") and hasattr(user, "organization"):
 
-                field.widget.attrs["class"] = "form-select"
+#                     field.queryset = field.queryset.filter(
+#                         organization=user.organization
+#                     )
 
-            else:
+#             # -----------------------------
+#             # 2️⃣ Bootstrap styling
+#             # -----------------------------
+#             if isinstance(field.widget, forms.CheckboxInput):
 
-                field.widget.attrs["class"] = "form-control"
-                field.widget.attrs["placeholder"] = field.label
+#                 field.widget.attrs["class"] = "form-check-input"
+
+#             elif isinstance(field.widget, forms.Select):
+
+#                 field.widget.attrs["class"] = "form-select"
+
+#             else:
+
+#                 field.widget.attrs["class"] = "form-control"
+#                 field.widget.attrs["placeholder"] = field.label
                 
-            # -------------------------
-            # Auto date picker
-            # -------------------------
-            if isinstance(field, forms.DateField):
+#             # -------------------------
+#             # Auto date picker
+#             # -------------------------
+#             if isinstance(field, forms.DateField):
 
-                field.widget = forms.DateInput(
-                    attrs={
-                        "type": "date",
-                        "class": "form-control"
-                    }
-                )
+#                 field.widget = forms.DateInput(
+#                     attrs={
+#                         "type": "date",
+#                         "class": "form-control"
+#                     }
+#                 )
                 
 # class TenantModelForm(forms.ModelForm):
 #     """

@@ -2,7 +2,14 @@
 
 {% block content %}
 
-<div class="container mt-4">
+<div class="container mt-4 position-relative">
+
+    <!-- Back Button -->
+    <div class="position-absolute top-0 end-0">
+        <a href="{% url 'subjects:subject_detail' visit.subject.pk %}" class="btn btn-outline-secondary">
+            ← Back to Subject Details
+        </a>
+    </div>
 
     <h2>
         Subject {{ visit.subject.subject_id }} —
