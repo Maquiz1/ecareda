@@ -18,6 +18,7 @@
             <tr>
                 <th>Site</th>
                 <th>Subject ID</th>
+                <th>Enrollment Date</th>
                 <th width="250">Actions</th>
             </tr>
         </thead>
@@ -29,6 +30,7 @@
         <tr>
             <td>{{ subject.site.name }}</td>
             <td>{{ subject.subject_id }}</td>
+            <td>{{ subject.enrollment_date }}</td>
             <td>
 
                 <a href="{% url 'subjects:subject_detail' subject.pk %}"

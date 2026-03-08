@@ -9,3 +9,8 @@ class SubjectCreateView(TenantCreateView):
     form_class = SubjectForm
     template_name = "subjects/subject_form.html"
     success_url = reverse_lazy("subjects:subject_list")
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["request"] = self.request
+        return kwargs

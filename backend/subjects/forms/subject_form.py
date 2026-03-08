@@ -1,15 +1,11 @@
+# subjects/forms/subject_form.py
+
 from django import forms
 from subjects.models import Subject
 from projects.models import Project
 from sites.models import Site
 from core.forms.tenant_model_form import TenantModelForm
 
-# class SubjectForm(forms.ModelForm):
-#     class Meta:
-#         model = Subject
-#         fields = ["subject_id", "project"]
-        
-        
 class SubjectForm(TenantModelForm):
 
     class Meta:
@@ -19,6 +15,7 @@ class SubjectForm(TenantModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # force queryset evaluation
         self.fields["project"].queryset = Project.objects.all().order_by("name")
         self.fields["site"].queryset = Site.objects.all().order_by("name")
+
+        self.fields["enrollment_date"].widget.attrs["type"] = "date"

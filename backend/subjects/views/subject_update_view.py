@@ -14,3 +14,8 @@ class SubjectUpdateView(LoginRequiredMixin, TenantQuerysetMixin, UpdateView):
     def get_success_url(self):
         # return reverse_lazy("subjects:subject_detail", kwargs={"pk": self.object.pk})
         return reverse_lazy("subjects:subject_list")
+    
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["request"] = self.request
+        return kwargs

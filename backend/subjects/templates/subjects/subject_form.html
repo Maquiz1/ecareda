@@ -2,17 +2,80 @@
 
 {% block content %}
 
-<h2>{{ view.object|default:"Create Subject" }}</h2>
+<div class="container mt-4">
 
-<form method="post">
-    {% csrf_token %}
+    <div class="row justify-content-center">
 
-    {{ form.as_p }}
+        <div class="col-md-8">
 
-    <button type="submit" class="btn btn-primary">
-        Save
-    </button>
+            <div class="card shadow-sm">
 
-</form>
+                <div class="card-header bg-light">
+
+                    <h4 class="mb-0">
+                        {% if view.object %}
+                            Update Subject
+                        {% else %}
+                            Create Subject
+                        {% endif %}
+                    </h4>
+
+                </div>
+
+                <div class="card-body">
+
+                    <form method="post">
+
+                        {% csrf_token %}
+
+                        {% for field in form %}
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                {{ field.label }}
+                            </label>
+
+                            {{ field }}
+
+                            {% if field.help_text %}
+                                <div class="form-text">
+                                    {{ field.help_text }}
+                                </div>
+                            {% endif %}
+
+                            {% for error in field.errors %}
+                                <div class="text-danger small">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+
+                        </div>
+
+                        {% endfor %}
+
+                        <div class="d-flex justify-content-between mt-4">
+
+                            <a href="{% url 'subjects:subject_list' %}" class="btn btn-secondary">
+                                Cancel
+                            </a>
+
+                            <button type="submit" class="btn btn-primary">
+                                Save Subject
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}
