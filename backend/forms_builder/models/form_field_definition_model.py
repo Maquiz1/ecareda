@@ -7,6 +7,7 @@ class FormFieldDefinition(models.Model):
 
     FIELD_TYPES = (
         ("text", "Text"),
+        ("textarea", "Textarea"),
         ("number", "Number"),
         ("date", "Date"),
         ("select", "Select"),

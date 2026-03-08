@@ -29,6 +29,22 @@ class DynamicFormEntry(BootstrapTenantMixin, forms.Form):
         self.apply_tenant_and_style()
 
 
+    def parse_choices(self, choices_string):
+
+        choices = []
+
+        for item in choices_string.split(","):
+
+            item = item.strip()
+
+            if "=" in item:
+                value, label = item.split("=", 1)
+                choices.append((value.strip(), label.strip()))
+            else:
+                choices.append((item, item))
+
+        return choices
+
     def create_form_field(self, field, initial):
 
         if field.field_type == "text":
@@ -64,7 +80,7 @@ class DynamicFormEntry(BootstrapTenantMixin, forms.Form):
             choices = []
 
             if field.choices:
-                choices = [(c.strip(), c.strip()) for c in field.choices.split(",")]
+                choices = self.parse_choices(field.choices) if field.choices else []
 
             return forms.ChoiceField(
                 label=field.label,
@@ -76,6 +92,20 @@ class DynamicFormEntry(BootstrapTenantMixin, forms.Form):
 
         elif field.field_type == "checkbox":
 
+            # multiple checkbox options
+            if field.choices:
+
+                choices = self.parse_choices(field.choices)
+
+                return forms.MultipleChoiceField(
+                    label=field.label,
+                    required=False,
+                    choices=choices,
+                    initial=initial,
+                    widget=forms.CheckboxSelectMultiple
+                )
+
+            # single checkbox
             return forms.BooleanField(
                 label=field.label,
                 required=False,
@@ -87,7 +117,7 @@ class DynamicFormEntry(BootstrapTenantMixin, forms.Form):
             choices = []
 
             if field.choices:
-                choices = [(c.strip(), c.strip()) for c in field.choices.split(",")]
+                choices = self.parse_choices(field.choices) if field.choices else []
 
             return forms.ChoiceField(
                 label=field.label,
@@ -107,8 +137,8 @@ class DynamicFormEntry(BootstrapTenantMixin, forms.Form):
             )
 
 
-        return forms.CharField(
+        return forms.ChoiceField(
             label=field.label,
             required=field.required,
-            initial=initial
+            initial=initial,
         )

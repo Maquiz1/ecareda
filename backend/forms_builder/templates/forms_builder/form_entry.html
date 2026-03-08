@@ -46,14 +46,14 @@
                     </div>
 
                     <div class="col-md-8">
-                        <!-- {{ field }} -->
-                        {% if field.field.widget.input_type == "radio" %}
+                        {{ field }}
+                        <!-- {% if field.field.widget.input_type == "radio" %}
                         <div class="form-check">
                             {{ field }}
                         </div>
                         {% else %}
                         {{ field }}
-                        {% endif %}
+                        {% endif %} -->
 
                         {% if field.errors %}
                             <div class="text-danger small">
