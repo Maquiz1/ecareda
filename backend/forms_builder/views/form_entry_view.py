@@ -11,11 +11,13 @@ class FormEntryView(View):
     def get(self, request, pk):
         form_response = get_object_or_404(FormResponse, pk=pk)
 
-        fields = form_response.form.fields.all()
+        # fields = form_response.form.field_values.all()
+        fields = form_response.form.formfielddefinition_set.all()
 
         existing_values = {
             fv.field_id: fv.value
             for fv in FieldValue.objects.filter(form_response=form_response)
+            # for fv in FieldValue.objects.filter(response=form_response)
         }
 
         return render(request, self.template_name, {
@@ -30,7 +32,8 @@ class FormEntryView(View):
         if form_response.status == "locked":
             return redirect("visit_detail", pk=form_response.visit.pk)
 
-        fields = form_response.form.fields.all()
+        fields = form_response.form.field_values.all()
+        # fields = form_response.form.formfielddefinition_set.all()
 
         for field in fields:
             value = request.POST.get(str(field.id))
