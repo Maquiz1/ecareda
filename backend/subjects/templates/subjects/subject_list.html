@@ -16,8 +16,8 @@
 
         <thead class="table-light">
             <tr>
+                <th>Site</th>
                 <th>Subject ID</th>
-                <th>Project</th>
                 <th width="250">Actions</th>
             </tr>
         </thead>
@@ -27,10 +27,8 @@
         {% for subject in subjects %}
 
         <tr>
-
+            <td>{{ subject.site.name }}</td>
             <td>{{ subject.subject_id }}</td>
-            <td>{{ subject.project.name }}</td>
-
             <td>
 
                 <a href="{% url 'subjects:subject_detail' subject.pk %}"
