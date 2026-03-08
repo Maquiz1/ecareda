@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'visits',
     'forms_builder',
     'core',
+    'dashboard',
 ]
 
 AUTH_USER_MODEL = "accounts.User"

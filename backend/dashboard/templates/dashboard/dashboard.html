@@ -1,14 +1,118 @@
-<!-- dashboard/templates/dashboard/dashboard.html -->
- 
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Dashboard</h1>
-<p>Welcome to the dashboard! Here you can see an overview of your projects, subjects, and recent activity.</p>  
-<ul>
-    <li><a href="{% url 'subjects:subject_list' %}">View Subjects</a></li>
-    <li><a href="{% url 'projects:project_list' %}">View Projects</a></li>
-    <li><a href="{% url 'visits:visit_list' %}">View Visits</a></li>
-    <li><a href="{% url 'forms_builder:form_list' %}">View Forms</a></li>
-</ul>
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">Study Dashboard</h2>
+
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h3>{{ total_subjects }}</h3>
+                    <p>Total Subjects</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h3>{{ total_visits }}</h3>
+                    <p>Total Visits</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h3>{{ completed_visits }}</h3>
+                    <p>Completed Visits</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-center shadow-sm">
+                <div class="card-body">
+                    <h3>{{ open_visits }}</h3>
+                    <p>Open Visits</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <hr class="my-4">
+
+    <div class="row">
+
+        <div class="col-md-6">
+
+            <div class="card shadow-sm">
+
+                <div class="card-header">
+                    Recent Subjects
+                </div>
+
+                <table class="table">
+
+                    {% for subject in recent_subjects %}
+
+                    <tr>
+                        <td>{{ subject.subject_id }}</td>
+                        <td>{{ subject.project.name }}</td>
+                        <td>
+                            <a href="{% url 'subjects:subject_detail' subject.pk %}">
+                                Open
+                            </a>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="card shadow-sm">
+
+                <div class="card-header">
+                    Recent Visits
+                </div>
+
+                <table class="table">
+
+                    {% for visit in recent_visits %}
+
+                    <tr>
+                        <td>{{ visit.subject.subject_id }}</td>
+                        <td>Visit {{ visit.visit_number }}</td>
+                        <td>{{ visit.visit_date }}</td>
+                        <td>
+                            <a href="{% url 'visits:visit_detail' visit.pk %}">
+                                Open
+                            </a>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
 {% endblock %}
