@@ -114,16 +114,13 @@ class DynamicFormEntry(BootstrapTenantMixin, forms.Form):
             
         elif field.field_type == "radio":
 
-            choices = []
-
-            if field.choices:
-                choices = self.parse_choices(field.choices) if field.choices else []
+            choices = self.parse_choices(field.choices) if field.choices else []
 
             return forms.ChoiceField(
                 label=field.label,
                 required=field.required,
                 choices=choices,
-                initial=initial,
+                initial=str(initial) if initial is not None else None,
                 widget=forms.RadioSelect
             )
             

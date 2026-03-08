@@ -1,124 +1,177 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>eCareda EDC</title>
+<meta charset="UTF-8">
+<title>e-Careda</title>
 
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <style>
-        body {
-            overflow-x: hidden;
-        }
+<!-- FontAwesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-        .sidebar {
-            height: 100vh;
-            background-color: #1e293b;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-        .sidebar a {
-            color: #cbd5e1;
-            text-decoration: none;
-            display: block;
-            padding: 12px 20px;
-        }
+<!-- <link rel="stylesheet" href="{% static 'css/styles.css' %}"> -->
 
-        .sidebar a:hover {
-            background-color: #334155;
-            color: white;
-        }
+<style>
 
-        .navbar-custom {
-            background-color: #0f172a;
-        }
+body{
+    background:#f4f6f9;
+    font-size:14px;
+    font-family:'Inter',sans-serif;
+}
 
-        .timeline {
-            list-style: none;
-            padding-left: 0;
-            position: relative;
-        }
+/* NAVBAR */
+.navbar-custom{
+    background:#2c3e50;
+}
 
-        .timeline::before {
-            content: "";
-            position: absolute;
-            left: 12px;
-            width: 2px;
-            height: 100%;
-            background: #dee2e6;
-        }
+.navbar-brand{
+    font-size:18px;
+    letter-spacing:.5px;
+}
 
-        .timeline-item {
-            position: relative;
-            margin-bottom: 25px;
-            padding-left: 40px;
-        }
+/* SIDEBAR */
 
-        .timeline-marker {
-            position: absolute;
-            left: 0;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-        }
+.sidebar{
+    min-height:100vh;
+    background:#1f2d3d;
+}
 
-        .timeline-content {
-            padding: 5px 10px;
-        }
-    </style>
+.sidebar h6{
+    font-size:12px;
+    opacity:.7;
+}
+
+.sidebar a{
+    display:block;
+    color:#c2c7d0;
+    padding:10px 20px;
+    text-decoration:none;
+    font-size:14px;
+    transition:all .2s;
+}
+
+.sidebar a i{
+    width:20px;
+}
+
+.sidebar a:hover{
+    background:#32465a;
+    color:white;
+}
+
+/* MAIN AREA */
+
+.main-content{
+    background:white;
+    min-height:90vh;
+    border-radius:6px;
+    padding:25px;
+    box-shadow:0 0 10px rgba(0,0,0,0.05);
+}
+
+</style>
+
 </head>
 
 <body>
 
-    <!-- 🔝 NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="#">eCareda EDC</a>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom shadow-sm">
+<div class="container-fluid">
 
-            <div class="d-flex align-items-center text-white">
-                {% if user.is_authenticated %}
-                <span class="me-3">Welcome, {{ user.username }}</span>
-                <a href="/admin/logout/" class="btn btn-sm btn-outline-light">Logout</a>
-                {% endif %}
-            </div>
-        </div>
-    </nav>
+<a class="navbar-brand fw-bold">
+<i class="fa-solid fa-heart-pulse me-2"></i>e-Careda
+</a>
 
-    <div class="container-fluid">
-        <div class="row">
+<div class="d-flex align-items-center text-white">
 
-            <!-- 📚 SIDEBAR -->
-            <div class="col-md-2 sidebar p-0">
+{% if user.is_authenticated %}
 
-                <h6 class="text-white text-uppercase px-3 mt-4">Navigation</h6>
+<span class="me-3 small">
+<i class="fa fa-user me-1"></i>
+{{ user.username }}
+</span>
 
-                <a href="{% url 'subjects:subject_list' %}">Subjects</a>
-                <a href="{% url 'projects:project_list' %}">Projects</a>
-                <a href="{% url 'visits:visit_list' %}">Visits</a>
-                <a href="{% url 'forms_builder:form_list' %}">Forms</a>
-                {% if user.is_superuser %}
-                <!-- Manuals -->
-                <a href="{% url 'admin:index' %}"><i class="fas fa-book"></i><span> Admin Panel</span></a>
-                {% endif %}
-                <hr class="bg-light">
+<a href="/admin/logout/" class="btn btn-sm btn-outline-light">
+<i class="fa fa-sign-out-alt me-1"></i>Logout
+</a>
 
-                <h6 class="text-white text-uppercase px-3">Study</h6>
-                <a href="{% url 'dashboard:dashboard' %}">Dashboard</a>
-                <a href="#">Reports</a>
-                <a href="#">Monitoring</a>
+{% endif %}
 
-            </div>
+</div>
 
-            <!-- 📄 MAIN CONTENT -->
-            <div class="col-md-10 p-4">
-                {% block content %}
-                {% endblock %}
-            </div>
+</div>
+</nav>
 
-        </div>
-    </div>
+
+<div class="container-fluid">
+<div class="row">
+
+<!-- SIDEBAR -->
+<div class="col-md-2 sidebar p-0">
+
+<h6 class="text-white text-uppercase px-3 mt-4">Navigation</h6>
+
+<a href="{% url 'subjects:subject_list' %}">
+<i class="fa fa-users"></i> Subjects
+</a>
+
+<a href="{% url 'projects:project_list' %}">
+<i class="fa fa-diagram-project"></i> Projects
+</a>
+
+<a href="{% url 'visits:visit_list' %}">
+<i class="fa fa-calendar-check"></i> Visits
+</a>
+
+<a href="{% url 'forms_builder:form_list' %}">
+<i class="fa fa-file-lines"></i> Forms
+</a>
+
+{% if user.is_superuser %}
+<a href="{% url 'admin:index' %}">
+<i class="fa fa-gear"></i> Admin Panel
+</a>
+{% endif %}
+
+<hr class="text-light">
+
+<h6 class="text-white text-uppercase px-3">Study</h6>
+
+<a href="{% url 'dashboard:dashboard' %}">
+<i class="fa fa-chart-line"></i> Dashboard
+</a>
+
+<a href="#">
+<i class="fa fa-file-chart-column"></i> Reports
+</a>
+
+<a href="#">
+<i class="fa fa-chart-pie"></i> Monitoring
+</a>
+
+</div>
+
+
+<!-- MAIN CONTENT -->
+<div class="col-md-10 p-4">
+
+<div class="main-content">
+
+{% block content %}
+{% endblock %}
+
+</div>
+
+</div>
+
+</div>
+</div>
 
 </body>
-
 </html>

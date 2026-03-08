@@ -39,27 +39,52 @@
 
                 {% for field in form %}
 
-                <div class="row mb-3">
+                <div class="row mb-4">
 
+                    <!-- Label -->
                     <div class="col-md-4">
-                        {{ field.label_tag }}
+                        <label class="form-label fw-semibold">
+                            {{ forloop.counter }}. {{ field.label }}
+                        </label>
                     </div>
 
+                    <!-- Field -->
                     <div class="col-md-8">
-                        {{ field }}
-                        <!-- {% if field.field.widget.input_type == "radio" %}
-                        <div class="form-check">
-                            {{ field }}
-                        </div>
+
+                        {% if field.field.widget.input_type == "radio" %}
+
+                            {% for choice in field %}
+                            <div class="form-check">
+                                {{ choice.tag }}
+                                <label class="form-check-label">
+                                    {{ choice.choice_label }}
+                                </label>
+                            </div>
+                            {% endfor %}
+
+                        {% elif field.field.widget.input_type == "checkbox" %}
+
+                            {% for choice in field %}
+                            <div class="form-check">
+                                {{ choice.tag }}
+                                <label class="form-check-label">
+                                    {{ choice.choice_label }}
+                                </label>
+                            </div>
+                            {% endfor %}
+
                         {% else %}
-                        {{ field }}
-                        {% endif %} -->
+
+                            {{ field }}
+
+                        {% endif %}
 
                         {% if field.errors %}
-                            <div class="text-danger small">
-                                {{ field.errors }}
-                            </div>
+                        <div class="text-danger small mt-1">
+                            {{ field.errors }}
+                        </div>
                         {% endif %}
+
                     </div>
 
                 </div>
