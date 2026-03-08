@@ -21,7 +21,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load Environment Variables
 env = environ.Env() 
-# environ.Env.read_env()   #.env read in the current working directory.
 env.read_env(BASE_DIR / ".env")
 
 
@@ -32,24 +31,17 @@ env.read_env(BASE_DIR / ".env")
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
 DEBUG = env.bool("DEBUG", default=False)
+
 if DEBUG:
     # For development, allow localhost and 127.0.0.1
     ALLOWED_HOSTS = ast.literal_eval(env("ALLOWED_HOSTS", default="[]"))
-    # CONN_MAX_AGE = 0
 else:
-    # In production, read from environment variable
-    # ALLOWED_HOSTS = env("ALLOWED_HOSTS", default="").split(",")
     ALLOWED_HOSTS = [
     host.strip()
     for host in env("ALLOWED_HOSTS", default="").split(",")
     if host.strip()
 ]
-
-# ALLOWED_HOSTS = []
-# SECRET_KEY = env('ALLOWED_HOSTS')
-
 
 # Application definition
 
