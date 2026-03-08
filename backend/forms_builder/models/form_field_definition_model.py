@@ -9,8 +9,9 @@ class FormFieldDefinition(models.Model):
         ("text", "Text"),
         ("number", "Number"),
         ("date", "Date"),
-        ("boolean", "Yes/No"),
-        ("select", "Dropdown"),
+        ("select", "Select"),
+        ("radio", "Radio"),
+        ("checkbox", "Checkbox"),
     )
 
     form = models.ForeignKey(FormDefinition, on_delete=models.CASCADE)

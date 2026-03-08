@@ -8,25 +8,107 @@ class DynamicFormEntry(BootstrapTenantMixin, forms.Form):
     def __init__(self, *args, form=None, values=None, request=None, **kwargs):
 
         self.request = request
-
         super().__init__(*args, **kwargs)
 
         fields = FormFieldDefinition.objects.filter(
-            form=form,
-            # is_deleted=False
+            form=form
         ).order_by("order")
 
         for field in fields:
+
+            field_name = f"field_{field.id}"
 
             initial = None
             if values:
                 initial = values.get(str(field.id))
 
-            self.fields[str(field.id)] = forms.CharField(
+            form_field = self.create_form_field(field, initial)
+
+            self.fields[field_name] = form_field
+
+        self.apply_tenant_and_style()
+
+
+    def create_form_field(self, field, initial):
+
+        if field.field_type == "text":
+
+            return forms.CharField(
                 label=field.label,
                 required=field.required,
                 initial=initial
             )
 
-        # Apply tenant filtering + styling
-        self.apply_tenant_and_style()
+
+        elif field.field_type == "number":
+
+            return forms.IntegerField(
+                label=field.label,
+                required=field.required,
+                initial=initial
+            )
+
+
+        elif field.field_type == "date":
+
+            return forms.DateField(
+                label=field.label,
+                required=field.required,
+                initial=initial,
+                widget=forms.DateInput(attrs={"type": "date"})
+            )
+
+
+        elif field.field_type == "select":
+
+            choices = []
+
+            if field.choices:
+                choices = [(c.strip(), c.strip()) for c in field.choices.split(",")]
+
+            return forms.ChoiceField(
+                label=field.label,
+                required=field.required,
+                choices=[("", "---------")] + choices,
+                initial=initial
+            )
+
+
+        elif field.field_type == "checkbox":
+
+            return forms.BooleanField(
+                label=field.label,
+                required=False,
+                initial=initial
+            )
+            
+        elif field.field_type == "radio":
+
+            choices = []
+
+            if field.choices:
+                choices = [(c.strip(), c.strip()) for c in field.choices.split(",")]
+
+            return forms.ChoiceField(
+                label=field.label,
+                required=field.required,
+                choices=choices,
+                initial=initial,
+                widget=forms.RadioSelect
+            )
+            
+        elif field.field_type == "textarea":
+
+            return forms.CharField(
+                label=field.label,
+                required=field.required,
+                initial=initial,
+                widget=forms.Textarea(attrs={"rows":4})
+            )
+
+
+        return forms.CharField(
+            label=field.label,
+            required=field.required,
+            initial=initial
+        )

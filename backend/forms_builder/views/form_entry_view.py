@@ -45,7 +45,9 @@ class FormEntryView(View):
 
         if form.is_valid():
 
-            for field_id, value in form.cleaned_data.items():
+            for field_name, value in form.cleaned_data.items():
+
+                field_id = field_name.replace("field_", "")
 
                 FieldValue.objects.update_or_create(
                     form_response=form_response,
