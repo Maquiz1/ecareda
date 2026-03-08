@@ -48,6 +48,18 @@ class TenantModelForm(forms.ModelForm):
                 field.widget.attrs["class"] = "form-control"
                 field.widget.attrs["placeholder"] = field.label
                 
+            # -------------------------
+            # Auto date picker
+            # -------------------------
+            if isinstance(field, forms.DateField):
+
+                field.widget = forms.DateInput(
+                    attrs={
+                        "type": "date",
+                        "class": "form-control"
+                    }
+                )
+                
 # class TenantModelForm(forms.ModelForm):
 #     """
 #     Restricts queryset fields to the user's organization.
