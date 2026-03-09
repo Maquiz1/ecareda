@@ -38,32 +38,39 @@
 
                 <tbody>
 
-                {% for response in forms %}
+                    {% for response in forms %}
 
-                <tr>
+                    <tr>
 
-                    <td>{{ response.form.name }}</td>
+                        <td>{{ response.form.name }}</td>
 
-                    <td>
-                        {% if response.is_completed %}
+                        <td>
+                            {% if response.is_completed %}
                             <span class="badge bg-success">Completed</span>
-                        {% else %}
+                            {% else %}
                             <span class="badge bg-warning">Pending</span>
-                        {% endif %}
-                    </td>
+                            {% endif %}
 
-                    <td>
 
-                        <a href="{% url 'forms_builder:form_entry' response.pk %}"
-                           class="btn btn-sm btn-primary">
-                           Open
-                        </a>
+                        </td>
 
-                    </td>
+                        <td>
 
-                </tr>
+                            <a href="{% url 'forms_builder:form_entry' response.pk %}" class="btn btn-sm btn-primary">
+                                Open
+                            </a>
 
-                {% endfor %}
+                        <!-- </td>
+
+                        <td> -->
+                            <span class="badge bg-{{ visit.status_badge }}">
+                                {{ visit.get_status_display }}
+                            </span>
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
 
                 </tbody>
 

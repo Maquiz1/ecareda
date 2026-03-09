@@ -16,6 +16,13 @@ class Visit(models.Model):
         ("locked", "Locked"),
     )
     
+    STATUS_CHOICES = [
+        ("scheduled", "Scheduled"),
+        ("window_open", "Window Open"),
+        ("overdue", "Overdue"),
+        ("completed", "Completed"),
+    ]
+    
     VISIT_CATEGORY = (
         ("scheduled", "Scheduled"),
         ("unscheduled", "Unscheduled"),
@@ -44,10 +51,16 @@ class Visit(models.Model):
 
     notes = models.TextField(blank=True)
 
+    # status = models.CharField(
+    #     max_length=20,
+    #     choices=VISIT_STATUS,
+    #     default="open"
+    # )
+    
     status = models.CharField(
         max_length=20,
-        choices=VISIT_STATUS,
-        default="open"
+        choices=STATUS_CHOICES,
+        default="scheduled"
     )
 
     # Visit-level locking
@@ -69,6 +82,17 @@ class Visit(models.Model):
     class Meta:
         unique_together = ("subject", "visit_number")
         ordering = ["visit_date"]
+
+    def status_badge(self):
+
+        colors = {
+            "scheduled": "secondary",
+            "window_open": "success",
+            "overdue": "danger",
+            "completed": "primary",
+        }
+
+        return colors.get(self.status, "secondary")
 
     def save(self, *args, **kwargs):
         is_new = self.pk is None

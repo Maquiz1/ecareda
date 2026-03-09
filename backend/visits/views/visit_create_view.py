@@ -34,6 +34,7 @@ class VisitCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.subject = self.subject
+        form.instance.status = "scheduled"
         return super().form_valid(form)
 
     def get_success_url(self):
