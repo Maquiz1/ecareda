@@ -16,6 +16,12 @@ class ProjectVisitSchedule(models.Model):
         choices=VISIT_TYPES
     )
 
+    # ⭐ NEW FIELD
+    recurrence_months = models.PositiveIntegerField(
+        default=0,
+        help_text="0 = manual scheduling, 1 = monthly, 2 = every 2 months"
+    )
+    
     visit_number = models.PositiveIntegerField()
 
     days_from_baseline = models.IntegerField()
