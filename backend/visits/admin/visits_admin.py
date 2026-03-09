@@ -8,7 +8,6 @@ class FormResponseInline(admin.TabularInline):
     model = FormResponse
     extra = 0
 
-
 @admin.register(Visit)
 class VisitAdmin(SimpleHistoryAdmin):
     list_display = ("subject", "visit_number", "visit_type", "visit_date")

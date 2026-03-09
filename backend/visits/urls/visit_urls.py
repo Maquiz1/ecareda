@@ -1,5 +1,12 @@
 from django.urls import path
-from visits.views import VisitListView,VisitDetailView,VisitCreateView,UnscheduledVisitCreateView,VisitDetailView
+from visits.views import (
+    VisitListView,
+    VisitDetailView,
+    VisitCreateView,
+    UnscheduledVisitCreateView,
+    VisitDetailView,
+    project_visit_schedule_list
+)
 
 app_name = "visits"
 
@@ -18,5 +25,11 @@ urlpatterns = [
         "<int:pk>/",
         VisitDetailView.as_view(),
         name="visit_detail"
-    )
+    ),
+    
+    path(
+        "projects/<int:project_id>/visit-schedule/",
+        project_visit_schedule_list,
+        name="project_visit_schedule_list",
+    ),
 ]
