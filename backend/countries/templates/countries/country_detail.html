@@ -1,0 +1,8 @@
+<!-- country_detail.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ country.name }}</h1>
+<p>Created on: {{ country.created_at }}</p>
+<p>Description: {{ country.description }}</p>
+{% endblock %}

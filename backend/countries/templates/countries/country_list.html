@@ -1,0 +1,17 @@
+<!-- countries_list.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Countries List ({{ countries | length }})</h1>
+<ul>
+    {% for country in countries %}
+    <li>{{ forloop.counter }}. 
+        <a href="{% url 'countries:country-detail' country.pk %}">
+            {{ country.name }} - Created on {{ country.created_at }}
+        </a>
+    </li>    
+    {% empty %}
+    <li>No countries found.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
