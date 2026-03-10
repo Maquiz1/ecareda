@@ -1,7 +1,6 @@
 from django.db import models
 # from core.models import ActiveModel
 
-
 class Organization(models.Model):
     name = models.CharField(max_length=255)
     code = models.CharField(max_length=50, unique=True)
