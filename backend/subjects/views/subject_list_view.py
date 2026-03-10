@@ -13,5 +13,5 @@ class SubjectListView(LoginRequiredMixin, ListView):
             Subject.objects
             .filter(is_deleted=False)
             .select_related("site", "project")
-            .order_by("site__name", "subject_id")
+            .order_by("project__name","site__name", "subject_id")
         )

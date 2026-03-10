@@ -1,0 +1,52 @@
+{% load static %}
+
+<div class="col-md-2 sidebar p-0">
+
+    <h6 class="text-white text-uppercase px-3 mt-4">Navigation</h6>
+
+    <a href="{% url 'organizations:organizations-list' %}">
+        <i class="fa fa-diagram-project"></i> Organisations
+    </a>
+
+    <a href="{% url 'projects:project_list' %}">
+        <i class="fa fa-diagram-project"></i> Projects
+    </a>
+    <a href="{% url 'sites:project-site-list' %}">
+        <i class="fa fa-diagram-project"></i> Projects Sites
+    </a>
+
+    <a href="{% url 'subjects:subject_list' %}">
+        <i class="fa fa-users"></i> Subjects
+    </a>
+
+    <a href="{% url 'visits:visit_list' %}">
+        <i class="fa fa-calendar-check"></i> Visits
+    </a>
+
+    <a href="{% url 'forms_builder:form_list' %}">
+        <i class="fa fa-file-lines"></i> Forms
+    </a>
+
+    {% if user.is_superuser %}
+    <a href="{% url 'admin:index' %}">
+        <i class="fa fa-gear"></i> Admin Panel
+    </a>
+    {% endif %}
+
+    <hr class="text-light">
+
+    <h6 class="text-white text-uppercase px-3">Study</h6>
+
+    <a href="{% url 'dashboard:dashboard' %}">
+        <i class="fa fa-chart-line"></i> Dashboard
+    </a>
+
+    <a href="#">
+        <i class="fa fa-file-chart-column"></i> Reports
+    </a>
+
+    <a href="#">
+        <i class="fa fa-chart-pie"></i> Monitoring
+    </a>
+
+</div>

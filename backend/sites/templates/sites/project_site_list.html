@@ -1,0 +1,17 @@
+<!-- sites_list.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Site List ({{ sites | length }})</h1>
+<ul>
+    {% for site in sites %}
+    <li>{{ forloop.counter }}. 
+        <a href="{% url 'sites:project-site-detail' site.pk %}">
+            {{ site.name }} - Created on {{ site.created_at }}
+        </a>
+    </li>    
+    {% empty %}
+    <li>No sites found.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

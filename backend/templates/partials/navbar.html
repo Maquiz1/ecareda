@@ -1,0 +1,26 @@
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom shadow-sm">
+        <div class="container-fluid">
+
+            <a class="navbar-brand fw-bold">
+                <i class="fa-solid fa-heart-pulse me-2"></i>e-Careda
+            </a>
+
+            <div class="d-flex align-items-center text-white">
+
+                {% if user.is_authenticated %}
+
+                <span class="me-3 small">
+                    <i class="fa fa-user me-1"></i>
+                    {{ user.username }}
+                </span>
+
+                <a href="/admin/logout/" class="btn btn-sm btn-outline-light">
+                    <i class="fa fa-sign-out-alt me-1"></i>Logout
+                </a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+    </nav>

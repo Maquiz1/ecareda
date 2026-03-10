@@ -17,6 +17,9 @@
 
         <thead class="table-light">
             <tr>
+                <th>Organisation <br>/ Institution <br>/ Partner</th>
+                <th>Project</th>
+                <th>Country</th>
                 <th>Site</th>
                 <th>Subject ID</th>
                 <th>Enrollment Date</th>
@@ -29,6 +32,9 @@
         {% for subject in subjects %}
 
         <tr>
+            <td>{{ subject.organisation.name }}</td>
+            <td>{{ subject.project.name }}</td>
+            <td>{{ subject.country.name }}</td>
             <td>{{ subject.site.name }}</td>
             <td>{{ subject.subject_id }}</td>
             <td>{{ subject.enrollment_date }}</td>

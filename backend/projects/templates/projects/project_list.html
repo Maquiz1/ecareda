@@ -2,10 +2,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Project List</h1>
+<h1>Project List ({{ projects | length }})</h1>
 <ul>
     {% for project in projects %}
-    <li>
+    <li>{{ forloop.counter }}. 
         <a href="{% url 'projects:project_detail' project.pk %}">
             {{ project.name }} - Created on {{ project.created_at }}
         </a>

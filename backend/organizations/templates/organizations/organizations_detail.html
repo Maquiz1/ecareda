@@ -1,0 +1,8 @@
+<!-- organization_detail.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ organization.name }}</h1>
+<p>Created on: {{ organization.created_at }}</p>
+<p>Description: {{ organization.description }}</p>
+{% endblock %}
