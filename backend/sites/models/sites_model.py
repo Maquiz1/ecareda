@@ -1,8 +1,9 @@
 from django.db import models
 from organizations.models import Organization
 from countries.models import Country
+from core.models import TenantAuditModel
 
-class Site(models.Model):
+class Site(TenantAuditModel):
     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
