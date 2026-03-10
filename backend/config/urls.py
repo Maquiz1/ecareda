@@ -11,6 +11,7 @@ urlpatterns = [
     path("visits/", include("visits.urls")),
     path("forms/", include("forms_builder.urls")),
     path("organizations/", include("organizations.urls")),
+    path("branches/", include("branches.urls")),
     path("countries/", include("countries.urls")),
     path("projects/", include("projects.urls")),
     path("sites/", include("sites.urls")),

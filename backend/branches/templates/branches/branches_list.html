@@ -1,0 +1,17 @@
+<!-- branches_list.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Branches List ({{ branches | length }})</h1>
+<ul>
+    {% for branch in branches %}
+    <li>{{ forloop.counter }}. 
+        <a href="{% url 'branches:branch-detail' branch.pk %}">
+            {{ branch.name }} - Code : {{ branch.code }} - Created on {{ branch.created_at }}
+        </a>
+    </li>    
+    {% empty %}
+    <li>No branches found.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
