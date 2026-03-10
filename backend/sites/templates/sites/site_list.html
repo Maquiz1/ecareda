@@ -6,7 +6,7 @@
 <ul>
     {% for site in sites %}
     <li>{{ forloop.counter }}. 
-        <a href="{% url 'sites:project-site-detail' site.pk %}">
+        <a href="{% url 'sites:site-detail' site.pk %}">
             {{ site.name }} - Created on {{ site.created_at }}
         </a>
     </li>    
