@@ -3,15 +3,17 @@
 <div class="col-md-2 sidebar p-0">
 
     <h6 class="text-white text-uppercase px-3 mt-4">Navigation</h6>
-
+    <a href="{% url 'countries:countries-list' %}">
+        <i class="fa fa-diagram-project"></i> Countries
+    </a>
     <a href="{% url 'organizations:organizations-list' %}">
         <i class="fa fa-diagram-project"></i> Organisations
     </a>
     <a href="{% url 'branches:branches-list' %}">
         <i class="fa fa-diagram-project"></i> branches
     </a>
-    <a href="{% url 'countries:countries-list' %}">
-        <i class="fa fa-diagram-project"></i> Countries
+    <a href="{% url 'centers:centers-list' %}">
+        <i class="fa fa-diagram-project"></i> Centers
     </a>
     <a href="{% url 'projects:project_list' %}">
         <i class="fa fa-diagram-project"></i> Projects

@@ -59,6 +59,8 @@ INSTALLED_APPS = [
     # our apps
     'organizations',
     'branches',
+    'centers',
+    'centres',
     'countries',
     'sites',
     'projects',

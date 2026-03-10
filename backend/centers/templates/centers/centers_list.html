@@ -1,0 +1,17 @@
+<!-- centers_list.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Centers List ({{ centers | length }})</h1>
+<ul>
+    {% for center in centers %}
+    <li>{{ forloop.counter }}. 
+        <a href="{% url 'centers:center-detail' center.pk %}">
+            {{ center.name }} - Code : {{ center.code }} - Created on {{ center.created_at }}
+        </a>
+    </li>    
+    {% empty %}
+    <li>No centerses found.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
