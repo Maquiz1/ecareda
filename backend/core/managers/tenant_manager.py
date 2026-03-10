@@ -32,19 +32,19 @@ class TenantManager(models.Manager):
         return qs
     
     
-from django.db import models
-from core.tenant import get_current_user
+# from django.db import models
+# from core.tenant import get_current_user
 
 
-class TenantQuerySet(models.QuerySet):
+# class TenantQuerySet(models.QuerySet):
 
-    def for_current_tenant(self):
-        user = get_current_user()
+#     def for_current_tenant(self):
+#         user = get_current_user()
 
-        if user and hasattr(user, "organization") and user.organization:
-            return self.filter(organization=user.organization)
+#         if user and hasattr(user, "organization") and user.organization:
+#             return self.filter(organization=user.organization)
 
-        return self
+#         return self
 
 
 
