@@ -2,7 +2,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>{{ branch.name }}</h1>
+<h1>{{ branch.name }} - ({{ branch.code }})</h1>
 <p>Created on: {{ branch.created_at }}</p>
 <p>Description: {{ branch.description }}</p>
 {% endblock %}
