@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import DetailView
 from django.urls import reverse_lazy
 from branches.models import Branch
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class BranchDetailView(DetailView):
     model = Branch

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 from sites.models import Site
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class SiteCreateUpdateView(CreateView):
     model = Site

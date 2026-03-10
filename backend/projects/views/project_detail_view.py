@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse_lazy
 from projects.models.projects_model import Project
-    
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 class ProjectDetailView(DetailView):
     model = Project
     template_name = "projects/project_detail.html"
