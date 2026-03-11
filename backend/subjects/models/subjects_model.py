@@ -3,10 +3,10 @@ from organizations.models import Organization
 from sites.models import Site
 from projects.models import Project
 from simple_history.models import HistoricalRecords
-from core.models import TenantAuditModel
+from core.models import TenantAuditModel,ActiveModel
 
 
-class Subject(TenantAuditModel):
+class Subject(TenantAuditModel,ActiveModel):
     site = models.ForeignKey(Site, on_delete=models.CASCADE)
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     subject_id = models.CharField(max_length=50)

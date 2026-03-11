@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from sites.models import Site
-from core.models import TenantAuditModel
+from core.models import TenantAuditModel,ActiveModel
 
 
 ARCHIVE_STATUS = (
@@ -11,7 +11,7 @@ ARCHIVE_STATUS = (
 )
 
 
-class Project(TenantAuditModel):
+class Project(TenantAuditModel,ActiveModel):
 
     name = models.CharField(max_length=255)
 
@@ -25,7 +25,7 @@ class Project(TenantAuditModel):
 
     sites = models.ManyToManyField(Site, through="ProjectSite")
 
-    is_active = models.BooleanField(default=True)
+    # is_active = models.BooleanField(default=True)
 
     archive_status = models.CharField(
         max_length=20,
