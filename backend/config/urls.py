@@ -10,6 +10,8 @@ urlpatterns = [
     path("subjects/", include("subjects.urls")),
     path("visits/", include("visits.urls")),
     path("forms/", include("forms_builder.urls")),
+    
+    # Management
     path("countries/", include("countries.urls")),
     path("organizations/", include("organizations.urls")),
     path("branches/", include("branches.urls")),
