@@ -6,197 +6,12 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>e-Careda |
+        {% block title %}
+        {% endblock %}
+    </title>
 
-    <title>e-Careda</title>
-
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- FontAwesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Inter', sans-serif;
-            background: #f4f6f9;
-            font-size: 14px;
-        }
-
-        /* ===== LAYOUT ===== */
-
-        .app {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* ===== SIDEBAR ===== */
-
-        .sidebar {
-            width: 240px;
-            background: #1f2d3d;
-            color: white;
-            transition: .3s;
-            overflow-y: auto;
-        }
-
-        .sidebar.collapsed {
-            width: 70px;
-        }
-
-        /* sidebar header */
-
-        .sidebar-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .sidebar-logo {
-            font-weight: 600;
-            font-size: 16px;
-            white-space: nowrap;
-        }
-
-        .sidebar.collapsed .sidebar-logo span {
-            display: none;
-        }
-
-        .toggle-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 18px;
-        }
-
-        /* menu */
-
-        .menu-title {
-            padding: 12px 18px;
-            font-size: 12px;
-            text-transform: uppercase;
-            opacity: .6;
-        }
-
-        .sidebar a {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #c2c7d0;
-            padding: 10px 18px;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .sidebar a:hover {
-            background: #32465a;
-            color: white;
-        }
-
-        .sidebar a.active {
-            background: #0d6efd;
-            color: white;
-        }
-
-        .sidebar.collapsed a span {
-            display: none;
-        }
-
-        /* ===== MAIN AREA ===== */
-
-        .main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* ===== NAVBAR ===== */
-
-        .topbar {
-            background: white;
-            border-bottom: 1px solid #e5e5e5;
-            padding: 10px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-icons {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            font-size: 18px;
-            color: #555;
-        }
-
-        /* ===== CONTENT ===== */
-
-        .content {
-            padding: 25px;
-            flex: 1;
-        }
-
-        .page-card {
-            background: white;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
-        }
-
-        /* ===== FOOTER ===== */
-
-        .footer {
-            background: white;
-            border-top: 1px solid #eee;
-            padding: 12px 20px;
-            font-size: 13px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        /* ===== MOBILE ===== */
-
-        @media(max-width:768px) {
-
-            .sidebar {
-                position: fixed;
-                left: -240px;
-                top: 0;
-                height: 100%;
-                z-index: 2000;
-            }
-
-            .sidebar.show {
-                left: 0;
-            }
-
-        }
-
-        .menu-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 18px;
-            font-size: 12px;
-            text-transform: uppercase;
-            opacity: .7;
-            cursor: pointer;
-        }
-
-        .menu-title:hover {
-            background: #32465a;
-            color: white;
-        }
-    </style>
+    {% include 'partials/header.html' %}
 
 </head>
 
@@ -206,157 +21,8 @@
     <div class="app">
 
         <!-- ================= SIDEBAR ================= -->
-        {% with current=request.resolver_match.url_name %}
-        <div class="sidebar" id="sidebar">
+        {% include 'partials/sidebar.html' %}
 
-            <div class="sidebar-header">
-
-                <div class="sidebar-logo">
-                    <i class="fa-solid fa-book-medical"></i>
-                    <span> e-Careda</span>
-                </div>
-
-                <button class="toggle-btn" id="toggleSidebar">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-
-            </div>
-
-
-            <!-- ================= SYSTEM ================= -->
-
-            <div class="menu-title" data-bs-toggle="collapse" data-bs-target="#menuSystem">
-                System
-                <i class="fa fa-chevron-down float-end"></i>
-            </div>
-
-            <div class="collapse
-            {% if current in 'countries-list organizations-list branches-list centers-list site-list project_list' %}
-            show
-            {% endif %}"            
-            id="menuSystem">
-
-                <a href="{% url 'countries:countries-list' %}" class="{% if current == 'countries-list' %}active{% endif %}">
-                    <i class="fa-solid fa-globe"></i>
-                    <span>Countries</span>
-                </a>
-
-                <a href="{% url 'organizations:organizations-list' %}" class="{% if current == 'organizations-list' %}active{% endif %}">
-                    <i class="fa-solid fa-building"></i>
-                    <span>Organisations</span>
-                </a>
-
-                <a href="{% url 'branches:branches-list' %}" class="{% if current == 'branches-list' %}active{% endif %}">
-                    <i class="fa-solid fa-code-branch"></i>
-                    <span>Branches</span>
-                </a>
-
-                <a href="{% url 'centers:centers-list' %}" class="{% if current == 'centers-list' %}active{% endif %}">
-                    <i class="fa-solid fa-hospital"></i>
-                    <span>Centers</span>
-                </a>
-
-                <a href="{% url 'sites:site-list' %}" class="{% if current == 'site-list' %}active{% endif %}">
-                    <i class="fa-solid fa-location-dot"></i>
-                    <span>Sites</span>
-                </a>
-
-                <a href="{% url 'projects:project_list' %}" class="{% if current == 'project_list' %}active{% endif %}">
-                    <i class="fa-solid fa-flask"></i>
-                    <span>Projects</span>
-                </a>
-
-            </div>
-
-
-            <!-- ================= DATA COLLECTION ================= -->
-
-            <div class="menu-title" data-bs-toggle="collapse" data-bs-target="#menuData">
-                Data Collection
-                <i class="fa fa-chevron-down float-end"></i>
-            </div>
-
-            <div class="collapse
-            {% if current in 'subject_list visit_list form_list' %}
-            show
-            {% endif %}" 
-            id="menuData">
-
-                <a href="{% url 'subjects:subject_list' %}" class="{% if current == 'subject_list' %}active{% endif %}">
-                    <i class="fa-solid fa-users"></i>
-                    <span>Subjects</span>
-                </a>
-
-                <a href="{% url 'visits:visit_list' %}" class="{% if current == 'visit_list' %}active{% endif %}">
-                    <i class="fa-solid fa-calendar-check"></i>
-                    <span>Visits</span>
-                </a>
-
-                <a href="{% url 'forms_builder:form_list' %}" class="{% if current == 'form_list' %}active{% endif %}">
-                    <i class="fa-solid fa-file-lines"></i>
-                    <span>Forms</span>
-                </a>
-
-            </div>
-
-
-            <!-- ================= STUDY ================= -->
-
-            <div class="menu-title" data-bs-toggle="collapse" data-bs-target="#menuStudy">
-                Study
-                <i class="fa fa-chevron-down float-end"></i>
-            </div>
-
-            <div class="collapse
-            {% if current == 'dashboard' %}
-            show
-            {% endif %}" 
-            
-            id="menuStudy">
-                <a href="{% url 'dashboard:dashboard' %}" class="{% if current == 'dashboard' %}active{% endif %}">
-                    <i class="fa-solid fa-chart-line"></i>
-                    <span>Dashboard</span>
-                </a>
-
-                <a href="#">
-                    <i class="fa-solid fa-chart-column"></i>
-                    <span>Reports</span>
-                </a>
-
-                <a href="#">
-                    <i class="fa-solid fa-chart-pie"></i>
-                    <span>Monitoring</span>
-                </a>
-
-            </div>
-
-
-            <!-- ================= ADMIN ================= -->
-
-            {% if user.is_superuser %}
-
-            <div class="menu-title" data-bs-toggle="collapse" data-bs-target="#menuAdmin">
-                Administration
-                <i class="fa fa-chevron-down float-end"></i>
-            </div>
-
-            <div class="collapse
-            {% if current in 'admin-index' %}
-            show
-            {% endif %}"
-            id="menuAdmin">
-
-                <a href="{% url 'admin:index' %}" class="{% if current == 'admin-index' %}active{% endif %}">
-                    <i class="fa-solid fa-gear"></i>
-                    <span>Admin Panel</span>
-                </a>
-
-            </div>
-
-            {% endif %}
-
-        </div>
-        {% endwith %}
         <!-- ================= MAIN ================= -->
 
         <div class="main">
@@ -364,41 +30,8 @@
 
             <!-- ================= NAVBAR ================= -->
 
-            <div class="topbar">
+            {% include 'partials/topbar.html' %}
 
-                <div>
-
-                    <strong>Clinical Research Data Platform</strong>
-
-                </div>
-
-                <div class="nav-icons">
-
-                    <i class="fa-solid fa-bell"></i>
-
-                    <div class="dropdown">
-
-                        <a class="dropdown-toggle text-dark text-decoration-none" data-bs-toggle="dropdown">
-                            <i class="fa-solid fa-user"></i> {{ request.user.username }}
-                        </a>
-
-                        <ul class="dropdown-menu dropdown-menu-end">
-
-                            <li>
-                                <a class="dropdown-item" href="#">Profile</a>
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a>
-                            </li>
-
-                        </ul>
-
-                    </div>
-
-                </div>
-
-            </div>
 
 
 
@@ -419,25 +52,8 @@
 
             <!-- ================= FOOTER ================= -->
 
-            <div class="footer">
+            {% include 'partials/footer.html' %}
 
-                <div>
-                    © {% now "Y" %} <strong>e-Careda</strong>
-                </div>
-
-                <div>
-
-                    Version {{ system_version }}
-
-                    {% if DEBUG %}
-                    <span class="badge bg-warning">DEV</span>
-                    {% else %}
-                    <span class="badge bg-success">PROD</span>
-                    {% endif %}
-
-                </div>
-
-            </div>
 
         </div>
 
@@ -447,40 +63,7 @@
 
     <!-- ================= JS ================= -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-
-        const sidebar = document.getElementById("sidebar")
-        const toggle = document.getElementById("toggleSidebar")
-
-        toggle.onclick = () => {
-
-            if (window.innerWidth < 768) {
-
-                sidebar.classList.toggle("show")
-
-            } else {
-
-                sidebar.classList.toggle("collapsed")
-
-            }
-
-        }
-
-
-        document.querySelectorAll(".menu-title").forEach(el => {
-
-            el.addEventListener("click", function () {
-
-                const icon = this.querySelector(".fa-chevron-down")
-                icon.classList.toggle("fa-rotate-180")
-
-            })
-
-        })
-    </script>
-
+    {% include 'partials/foot.html' %}
 
 </body>
 

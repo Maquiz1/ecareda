@@ -1,0 +1,170 @@
+<div class="topbar">
+
+    <!-- CENTER AREA -->
+
+    <div class="d-flex align-items-center gap-3">
+
+        <!-- ORGANIZATION -->
+
+        <div class="dropdown">
+
+            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+
+                <i class="fa fa-building me-1"></i>
+
+                {% if current_org %}
+                ORGANIZATION: {{ current_org.code }}
+                {% else %}
+                Select Organization
+                {% endif %}
+
+            </button>
+
+            <ul class="dropdown-menu">
+
+                {% for org in user_orgs %}
+
+                <li>
+
+                    <a class="dropdown-item" href="{% url 'core:set_organization' org.id %}">
+
+                        {{ org.code }} - {{ org.name }}
+
+                    </a>
+
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+        </div>
+
+
+
+        <!-- PROJECT -->
+
+        <div class="dropdown">
+
+            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+
+                <i class="fa fa-flask me-1"></i>
+
+                {% if current_project %}
+                PROJECT: {{ current_project.code }}
+                {% else %}
+                Select Project
+                {% endif %}
+
+            </button>
+
+            <ul class="dropdown-menu">
+
+                {% for project in user_projects %}
+
+                <li>
+
+                    <a class="dropdown-item" href="{% url 'core:set_project' project.id %}">
+
+                        {{ project.code }} - {{ project.name }}
+
+                    </a>
+
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- RIGHT SIDE -->
+
+    <div class="d-flex align-items-center gap-4">
+
+        <!-- NOTIFICATIONS -->
+
+        <a href="#" class="text-dark">
+
+            <i class="fa fa-bell"></i>
+
+        </a>
+
+
+        <!-- MESSAGES -->
+
+        <a href="#" class="text-dark">
+
+            <i class="fa fa-envelope"></i>
+
+        </a>
+
+
+        <!-- USER MENU -->
+
+        {% if user.is_authenticated %}
+
+        <div class="dropdown">
+
+            <a class="dropdown-toggle text-dark text-decoration-none" data-bs-toggle="dropdown">
+
+                <i class="fa fa-user-circle me-1"></i>
+
+                {{ user.username }}
+
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-end">
+
+                <li>
+
+                    <a class="dropdown-item" href="#">
+
+                        <i class="fa fa-user me-2"></i>
+
+                        Profile
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a class="dropdown-item" href="#">
+
+                        <i class="fa fa-gear me-2"></i>
+
+                        Settings
+
+                    </a>
+
+                </li>
+
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+
+                <li>
+
+                    <a class="dropdown-item text-danger" href="{% url 'accounts:logout' %}">
+
+                        <i class="fa fa-sign-out-alt me-2"></i>
+
+                        Logout
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+</div>
