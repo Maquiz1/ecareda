@@ -1,6 +1,10 @@
 <!-- center_detail.html -->
 {% extends "base.html" %}
 
+{% block title %}
+Centers
+{% endblock %}
+
 {% block content %}
 <h1>{{ center.name }} - ({{ center.code }})</h1>
 <p>Created on: {{ center.created_at }}</p>

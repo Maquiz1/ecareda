@@ -1,6 +1,10 @@
 <!-- country_detail.html -->
 {% extends "base.html" %}
 
+{% block title %}
+Countries
+{% endblock %}
+
 {% block content %}
 <h1>{{ country.name }}</h1>
 <p>Created on: {{ country.created_at }}</p>

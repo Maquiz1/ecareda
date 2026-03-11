@@ -1,6 +1,10 @@
 <!-- site_detail.html -->
 {% extends "base.html" %}
 
+{% block title %}
+Project Sites
+{% endblock %}
+
 {% block content %}
 <h1>{{ site.name }}</h1>
 <p>Created on: {{ site.created_at }}</p>

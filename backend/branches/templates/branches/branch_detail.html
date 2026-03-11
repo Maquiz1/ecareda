@@ -1,6 +1,10 @@
 <!-- branch_detail.html -->
 {% extends "base.html" %}
 
+{% block title %}
+branches
+{% endblock %}
+
 {% block content %}
 <h1>{{ branch.name }} - ({{ branch.code }})</h1>
 <p>Created on: {{ branch.created_at }}</p>
