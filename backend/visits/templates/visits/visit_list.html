@@ -6,7 +6,7 @@
     {% for visit in visits %}
     <li>
         <a href="{% url 'visits:visit_detail' visit.pk %}">
-            {{ visit.subject.name }} - {{ visit.visit_date }}
+            {{ visit.subject.subject_id }} - {{ visit.visit_date }}
         </a>
     </li>
     {% empty %}

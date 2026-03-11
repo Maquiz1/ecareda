@@ -8,3 +8,11 @@ class VisitListView(LoginRequiredMixin, ListView):
     model = Visit
     template_name = "visits/visit_list.html"
     context_object_name = "visits"
+    
+    def get_queryset(self):
+        return (
+            Visit.objects
+            # .filter(is_deleted=False)
+            # .select_related("site", "project")
+            .order_by("subject_id")
+        )
