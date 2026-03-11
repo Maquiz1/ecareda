@@ -9,5 +9,8 @@ class Country(AuditModel,SoftDeleteModel,ActiveModel):
     iso_code = models.CharField(max_length=3)
     # is_active = models.BooleanField(default=True)
 
+    class Meta:
+        verbose_name="Countries"
+        
     def __str__(self):
         return f"{self.name} ({self.organization.name})"

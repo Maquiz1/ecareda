@@ -9,5 +9,9 @@ class Branch(TenantAuditModel,ActiveModel):
     code = models.CharField(max_length=50, unique=True)
     # is_active = models.BooleanField(default=True)
 
+    class Meta:
+        verbose_name="Branches"
+        # verbose_name_prular="Branches"
+        
     def __str__(self):
         return self.name
