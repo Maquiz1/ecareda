@@ -13,7 +13,7 @@
                 <i class="fa fa-building me-1"></i>
 
                 {% if current_org %}
-                ORGANIZATION: {{ current_org.code }}
+                ORGANIZATION: <span class="badge bg-secondary text-dark ms-2">{{ current_org.code }}</span>
                 {% else %}
                 Select Organization
                 {% endif %}
@@ -51,7 +51,7 @@
                 <i class="fa fa-flask me-1"></i>
 
                 {% if current_project %}
-                PROJECT: {{ current_project.code }}
+                PROJECT: <span class="badge bg-secondary text-dark ms-2">{{ current_project.code }}</span>
                 {% else %}
                 Select Project
                 {% endif %}
