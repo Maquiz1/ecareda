@@ -3,18 +3,20 @@
 {% with current=request.resolver_match.url_name %}
 <div class="sidebar" id="sidebar">
 
-    <div class="sidebar-header">
+    <!-- <a href="{% url 'dashboard:dashboard' %}" class="sidebar-logo-link"> -->
 
-        <div class="sidebar-logo">
-            <i class="fa-solid fa-book-medical"></i>
-            <span> e-Careda</span>
+        <div class="sidebar-header">
+            <div class="sidebar-logo">
+                <i class="fa-solid fa-book-medical"></i>
+                <span> e-Careda</span>
+            </div>
+
+            <button class="toggle-btn" id="toggleSidebar">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
         </div>
-
-        <button class="toggle-btn" id="toggleSidebar">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-
-    </div>
+    <!-- </a> -->
 
 
     <!-- ================= SYSTEM ================= -->
