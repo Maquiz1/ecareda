@@ -17,12 +17,14 @@
 
 
     <!-- NAVBAR -->
+
     {% include 'partials/navbar.html' %}
 
 
     <!-- SIDEBAR -->
 
     {% include 'partials/sidebar.html' %}
+
 
     <!-- CONTENT -->
 
@@ -57,19 +59,14 @@
         const content = document.getElementById("contentWrapper");
         const footer = document.getElementById("footer");
 
-        if (toggle) {
-            toggle.addEventListener("click", function () {
+        toggle.addEventListener("click", function () {
 
-                sidebar?.classList.toggle("collapsed");
-                content?.classList.toggle("expanded");
-                footer?.classList.toggle("expanded");
+            sidebar.classList.toggle("collapsed");
+            content.classList.toggle("expanded");
+            footer.classList.toggle("expanded");
 
-            });
-        }
+        });
 
-    </script>
-
-    <script>
 
         document.querySelectorAll(".menu-title").forEach(function (el) {
 
@@ -84,6 +81,8 @@
         });
 
     </script>
+
+
 </body>
 
 </html>
