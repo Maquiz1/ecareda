@@ -1,21 +1,113 @@
-<!-- branches_list.html -->
 {% extends "base.html" %}
 
 {% block title %}
-branches
+Branches
 {% endblock %}
 
 {% block content %}
-<h1>Branches List ({{ branches | length }})</h1>
-<ul>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+
+<h4 class="mb-0">
+    <i class="fa-solid fa-code-branch me-2 text-primary"></i>
+    Branches
+    <span class="badge bg-secondary">{{ branches|length }}</span>
+</h4>
+
+<a href="#" class="btn btn-primary btn-sm">
+    <i class="fa fa-plus me-1"></i> Add Branch
+</a>
+
+
+</div>
+
+<div class="card shadow-sm">
+
+<div class="table-responsive">
+
+<table class="table table-hover align-middle mb-0">
+
+
+<thead class="table-light">
+
+    <tr>
+        <th style="width:60px">#</th>
+        <th>Name</th>
+        <th>Code</th>
+        <th>Created</th>
+        <th class="text-end">Actions</th>
+    </tr>
+
+</thead>
+
+<tbody>
+
     {% for branch in branches %}
-    <li>{{ forloop.counter }}. 
-        <a href="{% url 'branches:branch-detail' branch.pk %}">
-            {{ branch.name }} - Code : {{ branch.code }} - Created on {{ branch.created_at }}
-        </a>
-    </li>    
+
+    <tr>
+
+        <td>
+            {{ forloop.counter }}
+        </td>
+
+        <td>
+
+            <strong>{{ branch.name }}</strong>
+
+        </td>
+
+        <td>
+
+            <span class="badge bg-info text-dark">
+                {{ branch.code }}
+            </span>
+
+        </td>
+
+        <td>
+
+            {{ branch.created_at|date:"Y-m-d" }}
+
+        </td>
+
+        <td class="text-end">
+
+            <a href="{% url 'branches:branch-detail' branch.pk %}"
+               class="btn btn-sm btn-outline-primary">
+
+                <i class="fa fa-eye"></i>
+                View
+
+            </a>
+
+        </td>
+
+    </tr>
+
     {% empty %}
-    <li>No branches found.</li>
+
+    <tr>
+
+        <td colspan="5" class="text-center text-muted py-4">
+
+            <i class="fa fa-folder-open fa-2x mb-2"></i>
+
+            <div>No branches found</div>
+
+        </td>
+
+    </tr>
+
     {% endfor %}
-</ul>
+
+</tbody>
+
+
+</table>
+
+</div>
+
+</div>
+
 {% endblock %}
