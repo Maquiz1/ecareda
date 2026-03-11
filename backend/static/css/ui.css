@@ -1,0 +1,37 @@
+/* UI Styles */
+/* static/css/ui.css */
+
+/* ============================
+CARDS
+============================ */
+
+.card{
+    border:none;
+    border-radius:8px;
+    box-shadow:0 2px 6px rgba(0,0,0,.05);
+}
+
+/* ============================
+BUTTONS
+============================ */
+
+.btn-primary{
+    background:#2563eb;
+    border-color:#2563eb;
+}
+
+.btn-primary:hover{
+    background:#1d4ed8;
+}
+
+/* ============================
+FORMS
+============================ */
+
+.form-label{
+    font-weight:500;
+}
+
+textarea{
+    resize:vertical;
+}

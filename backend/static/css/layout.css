@@ -1,0 +1,85 @@
+/* static/css/layout.css */
+
+/* ============================
+GLOBAL
+============================ */
+
+body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    background:#f4f6f9;
+    font-size:14px;
+}
+
+/* ============================
+NAVBAR
+============================ */
+
+.navbar-custom{
+    height:60px;
+    background:#1f2d3d;
+    color:white;
+}
+
+.navbar-brand{
+    font-weight:600;
+    letter-spacing:.5px;
+}
+
+/* ============================
+SIDEBAR
+============================ */
+
+.sidebar{
+    position:fixed;
+    top:60px;
+    left:0;
+    width:240px;
+    height:calc(100vh - 60px);
+    background:#1f2d3d;
+    overflow-y:auto;
+    transition:all .3s;
+}
+
+.sidebar.collapsed{
+    margin-left:-240px;
+}
+
+/* ============================
+CONTENT
+============================ */
+
+.content-wrapper{
+    margin-left:240px;
+    margin-top:60px;
+    padding:25px;
+    transition:.3s;
+}
+
+.content-wrapper.expanded{
+    margin-left:0;
+}
+
+.page-card{
+    background:white;
+    border-radius:8px;
+    padding:25px;
+    box-shadow:0 2px 8px rgba(0,0,0,.05);
+    min-height:80vh;
+}
+
+/* ============================
+FOOTER
+============================ */
+
+.footer{
+    margin-left:240px;
+    padding:10px 20px;
+    background:white;
+    border-top:1px solid #e5e7eb;
+    font-size:13px;
+}
+
+.footer.expanded{
+    margin-left:0;
+}
