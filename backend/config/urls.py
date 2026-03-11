@@ -4,10 +4,9 @@ from django.contrib import admin
 from django.urls import path,include
 from django.views.generic import RedirectView
 
-
-SITE_TITLE = "e-Careda Administarions"
-SITE_TITLE = "e-Careda Administarions"
-
+admin.site.site_header = "e-Careda Administarions"
+admin.site.site_title = "e-Careda Administarions"
+admin.site.index_title = "Welcome to e-Careda Administarions Panel"
 
 urlpatterns = [
     path("", RedirectView.as_view(url="/dashboard/")),
