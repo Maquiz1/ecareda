@@ -2,7 +2,6 @@ from django import forms
 from forms_builder.models import FormFieldDefinition
 from core.forms.bootstrap_mixin import BootstrapTenantMixin
 
-
 class DynamicFormEntry(BootstrapTenantMixin, forms.Form):
 
     def __init__(self, *args, form=None, values=None, request=None, **kwargs):
