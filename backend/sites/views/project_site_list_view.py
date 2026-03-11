@@ -9,3 +9,11 @@ class SiteListView(ListView):
     template_name = "sites/site_list.html"
     context_object_name = "sites"
     
+    def get_queryset(self):
+        return (
+            Site.objects
+            # .filter(is_deleted=False)
+            # .select_related("site", "project")
+            .order_by("project","name")
+        )
+    
