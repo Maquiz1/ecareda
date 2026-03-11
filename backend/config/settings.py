@@ -111,6 +111,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                "core.context_processors.system_info_context_processors.system_info",  # To make system info available in all templates
+                'core.context_processors.current_context.current_context'
             ],
         },
     },
@@ -197,3 +199,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = "/accounts/login/"
 LOGIN_REDIRECT_URL = "dashboard:dashboard"
 LOGOUT_REDIRECT_URL = "/accounts/login/"
+
+
+SYSTEM_VERSION = "1.0.0"
+ORGANIZATION_CODE = "NIMR-MB"
+PROJECT_CODE = "DREAM-TB"

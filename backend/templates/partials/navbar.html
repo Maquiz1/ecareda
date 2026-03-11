@@ -1,30 +1,150 @@
+<!-- templates/partials/navbar.html -->
+
 <nav class="navbar navbar-expand-lg navbar-dark navbar-custom shadow-sm">
+
     <div class="container-fluid">
 
-        <a href="/dashboard/" class="navbar-brand fw-bold">
-            <i class="fa-solid fa-heart-pulse me-2"></i>e-Careda v1.0.0
+        <!-- SIDEBAR TOGGLE -->
+
+        <button class="btn btn-outline-light me-3" id="toggleSidebar">
+            <i class="fa fa-bars"></i>
+        </button>
+
+        <!-- SYSTEM NAME -->
+
+        <a class="navbar-brand">
+            <i class="fa-solid fa-heart-pulse me-2"></i>
+            e-Careda
         </a>
 
-        <a href="/dashboard/" class="btn btn-sm btn-outline-center">
-            Organization Code : Project Code
-        </a>
 
-        <div class="d-flex align-items-center text-white">
+        <!-- ORG + PROJECT -->
+
+        <div class="mx-auto d-flex align-items-center gap-3">
+
+            <!-- ORG -->
+
+            <div class="dropdown">
+
+                <button class="btn btn-sm btn-outline-light dropdown-toggle" data-bs-toggle="dropdown">
+
+                    <i class="fa fa-building me-1"></i>
+
+                    {% if current_org %}
+                    ORG: {{ current_org.code }}
+                    {% else %}
+                    Select Org
+                    {% endif %}
+
+                </button>
+
+                <ul class="dropdown-menu">
+
+                    {% for org in user_orgs %}
+
+                    <li>
+                        <a class="dropdown-item" href="{% url 'core:set_organization' org.id %}">
+                            {{ org.code }} - {{ org.name }}
+                        </a>
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+
+            <!-- PROJECT -->
+
+            <div class="dropdown">
+
+                <button class="btn btn-sm btn-outline-light dropdown-toggle" data-bs-toggle="dropdown">
+
+                    <i class="fa fa-flask me-1"></i>
+
+                    {% if current_project %}
+                    PROJECT: {{ current_project.code }}
+                    {% else %}
+                    Select Project
+                    {% endif %}
+
+                </button>
+
+                <ul class="dropdown-menu">
+
+                    {% for project in user_projects %}
+
+                    <li>
+                        <a class="dropdown-item" href="{% url 'core:set_project' project.id %}">
+                            {{ project.code }} - {{ project.name }}
+                        </a>
+                    </li>
+
+                    {% endfor %}
+
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT MENU -->
+
+        <div class="d-flex align-items-center">
+
+            <a href="#" class="nav-icon">
+                <i class="fa fa-bell"></i>
+            </a>
+
+            <a href="#" class="nav-icon">
+                <i class="fa fa-envelope"></i>
+            </a>
 
             {% if user.is_authenticated %}
 
-            <span class="me-3 small">
-                <i class="fa fa-user me-1"></i>
-                {{ user.username }}
-            </span>
+            <div class="dropdown">
 
-            <a href="/admin/logout/" class="btn btn-sm btn-outline-light">
-                <i class="fa fa-sign-out-alt me-1"></i>Logout
-            </a>
+                <a class="text-white dropdown-toggle text-decoration-none" data-bs-toggle="dropdown">
+
+                    <i class="fa fa-user-circle me-1"></i>
+                    {{ user.username }}
+
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-end">
+
+                    <li>
+                        <a class="dropdown-item" href="#">
+                            <i class="fa fa-user me-2"></i> Profile
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item" href="#">
+                            <i class="fa fa-gear me-2"></i> Settings
+                        </a>
+                    </li>
+
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item text-danger" href="/admin/logout/">
+                            <i class="fa fa-sign-out-alt me-2"></i> Logout
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
 
             {% endif %}
 
         </div>
 
     </div>
+
 </nav>

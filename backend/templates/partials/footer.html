@@ -1,1 +1,21 @@
-NIMR
+    <footer class="footer d-flex justify-content-between" id="footer">
+
+        <div>
+            © {% now "Y" %} <strong>e-Careda</strong>
+            Clinical Research Data Platform
+        </div>
+
+        <div>
+
+            Version {{ system_version }}
+            Built with <i class="fa fa-heart text-danger"></i> Django
+
+            {% if DEBUG %}
+            <span class="badge bg-warning text-dark ms-2">DEV</span>
+            {% else %}
+            <span class="badge bg-success ms-2">PROD</span>
+            {% endif %}
+
+        </div>
+
+    </footer>

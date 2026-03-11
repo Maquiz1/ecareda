@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>e-Careda |
+        {% block title %}
+        {% endblock %}
+    </title>
+
+    {% include 'partials/header.html' %}
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    {% include 'partials/navbar.html' %}
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- SIDEBAR -->
+            {% include 'partials/sidebar.html' %}
+
+            <!-- MAIN CONTENT -->
+            <div class="col-md-10 p-4">
+
+                <div class="main-content">
+
+                    {% block content %}
+                    {% endblock %}
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    {% include 'partials/footer.html' %}
+
+</body>
+
+</html>

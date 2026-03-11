@@ -29,5 +29,8 @@ urlpatterns = [
     # 🔐 Django built-in auth URLs
     path("accounts/", include("accounts.urls")),
     
+    path("core/", include("core.urls")),
+
+    
     path('admin/', admin.site.urls),
 ]
