@@ -1,4 +1,5 @@
-<!-- projects_list.html -->
+<!-- organizations/templates/organizations/organizations_list.html -->
+
 {% extends "base.html" %}
 
 {% block title %}
@@ -6,16 +7,102 @@ Organizations
 {% endblock %}
 
 {% block content %}
-<h1>Organizations List ({{ organizations | length }})</h1>
-<ul>
-    {% for organization in organizations %}
-    <li>{{ forloop.counter }}. 
-        <a href="{% url 'organizations:organization-detail' organization.pk %}">
-            {{ organization.name }} - Code : {{ organization.code }} - Created on {{ organization.created_at }}
-        </a>
-    </li>    
-    {% empty %}
-    <li>No organizations found.</li>
-    {% endfor %}
-</ul>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h4 class="mb-0">
+        <i class="fa-solid fa-building me-2 text-primary"></i>
+        Organizations
+        <span class="badge bg-secondary">{{ organizations|length }}</span>
+    </h4>
+
+    <a href="#" class="btn btn-primary btn-sm">
+        <i class="fa fa-plus me-1"></i> Add Organization
+    </a>
+
+
+</div>
+
+<div class="table-responsive">
+
+    <table class="table table-hover align-middle">
+
+        <thead class="table-light">
+
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Code</th>
+                <th>Created</th>
+                <th class="text-end">Actions</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            {% for organization in organizations %}
+
+            <tr>
+
+                <td>
+                    {{ forloop.counter }}
+                </td>
+
+                <td>
+
+                    <strong>{{ organization.name }}</strong>
+
+                </td>
+
+                <td>
+
+                    <span class="badge bg-info text-dark">
+                        {{ organization.code }}
+                    </span>
+
+                </td>
+
+                <td>
+
+                    {{ organization.created_at|date:"Y-m-d" }}
+
+                </td>
+
+                <td class="text-end">
+
+                    <a href="{% url 'organizations:organization-detail' organization.pk %}"
+                        class="btn btn-sm btn-outline-primary">
+
+                        <i class="fa fa-eye"></i>
+                        View
+
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% empty %}
+
+            <tr>
+
+                <td colspan="5" class="text-center text-muted py-4">
+
+                    <i class="fa fa-folder-open fa-2x mb-2"></i>
+                    <div>No organizations found</div>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+
+    </table>
+
+</div>
+
 {% endblock %}

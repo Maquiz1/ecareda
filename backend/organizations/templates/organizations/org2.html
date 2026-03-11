@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+Organizations
+{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+```
+<h4 class="mb-0">
+    <i class="fa-solid fa-building me-2 text-primary"></i>
+    Organizations
+    <span class="badge bg-secondary">{{ organizations|length }}</span>
+</h4>
+
+<a href="#" class="btn btn-primary btn-sm">
+    <i class="fa fa-plus me-1"></i> Add Organization
+</a>
+```
+
+</div>
+
+{% include "components/data_table.html" with
+title="Organizations"
+columns="#,Name,Code,Created,Actions"
+table_rows=table_rows
+page_obj=page_obj
+%}
+
+{% endblock %}
