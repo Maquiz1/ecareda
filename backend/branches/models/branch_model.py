@@ -10,8 +10,8 @@ class Branch(TenantAuditModel,ActiveModel):
     # is_active = models.BooleanField(default=True)
 
     class Meta:
-        verbose_name="Branches"
-        # verbose_name_prular="Branches"
+        verbose_name="Branch"
+        verbose_name_plural="Branches"
         
     def __str__(self):
         return self.name
