@@ -10,7 +10,8 @@ class Country(AuditModel,SoftDeleteModel,ActiveModel):
     # is_active = models.BooleanField(default=True)
 
     class Meta:
-        verbose_name="Countries"
+        verbose_name="Country"
+        verbose_name_plural = "Countries"
         
     def __str__(self):
         return f"{self.name} ({self.organization.name})"
