@@ -1,20 +1,18 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from organizations.models import Organization
-from sites.models import Site
 
 
 class User(AbstractUser):
 
     organization = models.ForeignKey(
-        Organization,
+        "organizations.Organization",
         on_delete=models.SET_NULL,
         null=True,
         blank=True
     )
 
     site = models.ForeignKey(
-        Site,
+        "sites.Site",
         on_delete=models.SET_NULL,
         null=True,
         blank=True
