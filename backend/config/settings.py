@@ -205,3 +205,15 @@ LOGOUT_REDIRECT_URL = "/accounts/login/"
 SYSTEM_VERSION = "1.0.0"
 ORGANIZATION_CODE = "NIMR-MB"
 PROJECT_CODE = "DREAM-TB"
+
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://penplus.muhimbili.nimr.or.tz",
+    "https://www.penplus.muhimbili.nimr.or.tz",
+]
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
