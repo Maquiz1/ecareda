@@ -7,15 +7,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const toggle = document.getElementById("toggleSidebar");
     const sidebar = document.getElementById("sidebar");
-    const content = document.getElementById("contentWrapper");
-    const footer = document.getElementById("footer");
 
-    toggle.addEventListener("click", function(){
+    if (toggle && sidebar) {
+        toggle.addEventListener("click", function(){
+            if (window.innerWidth < 768) {
+                sidebar.classList.toggle("show");
+            } else {
+                sidebar.classList.toggle("collapsed");
+            }
+        });
+    }
 
-        sidebar.classList.toggle("collapsed");
-        content.classList.toggle("expanded");
-        footer.classList.toggle("expanded");
-
+    document.querySelectorAll(".menu-title").forEach(el => {
+        el.addEventListener("click", function () {
+            const icon = this.querySelector(".fa-chevron-down");
+            if (icon) {
+                icon.classList.toggle("fa-rotate-180");
+            }
+        });
     });
 
 });

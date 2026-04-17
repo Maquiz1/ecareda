@@ -1,5 +1,4 @@
 from django.db import models
-from organizations.models import Organization
 from core.managers.tenant_manager import TenantManager
 from core.tenant import get_current_user
 
@@ -7,7 +6,7 @@ from core.tenant import get_current_user
 class TenantModel(models.Model):
 
     organization = models.ForeignKey(
-        Organization,
+        "organizations.Organization",
         on_delete=models.CASCADE
     )
 

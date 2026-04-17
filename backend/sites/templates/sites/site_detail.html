@@ -1,12 +1,159 @@
-<!-- site_detail.html -->
 {% extends "base.html" %}
 
-{% block title %}
-Project Sites
-{% endblock %}
+{% block title %}{{ site.name }} | Site Details{% endblock %}
 
 {% block content %}
-<h1>{{ site.name }}</h1>
-<p>Created on: {{ site.created_at }}</p>
-<p>Description: {{ site.description }}</p>
+<style>
+    .breadcrumb-custom {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0;
+        margin-bottom: 24px;
+        list-style: none;
+        background-color: transparent;
+        font-size: 0.9rem;
+    }
+    .breadcrumb-custom li {
+        display: flex;
+        align-items: center;
+    }
+    .breadcrumb-custom li a {
+        color: #64748b;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+    .breadcrumb-custom li a:hover {
+        color: #0d6efd;
+    }
+    .breadcrumb-custom li + li::before {
+        content: "\f105"; /* FontAwesome angle-right */
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        padding: 0 10px;
+        color: #cbd5e1;
+    }
+    .profile-card {
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        border: 1px solid rgba(0,0,0,0.04);
+        animation: slideUpFade 0.4s ease forwards;
+        overflow: hidden;
+    }
+    .profile-header {
+        background: linear-gradient(to right, #f8fafc, #f1f5f9);
+        padding: 40px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    .site-avatar {
+        width: 80px;
+        height: 80px;
+        background: #0d6efd;
+        color: white;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        font-weight: 700;
+        box-shadow: 0 10px 15px -3px rgba(13, 110, 253, 0.3);
+    }
+    @keyframes slideUpFade {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .info-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #64748b;
+        letter-spacing: 0.05em;
+        margin-bottom: 4px;
+    }
+    .info-value {
+        font-size: 1rem;
+        color: #1e293b;
+        font-weight: 500;
+    }
+</style>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <ul class="breadcrumb-custom mb-0">
+        <li><a href="{% url 'sites:site-list' %}"><i class="fa-solid fa-map-location-dot me-1"></i> Sites</a></li>
+        <li class="text-dark fw-medium">{{ site.name }}</li>
+    </ul>
+    
+    <div class="d-flex gap-2">
+        <a href="{% url 'sites:site-edit' site.pk %}" class="btn btn-primary action-btn rounded-pill px-3 shadow-sm">
+            <i class="fa fa-edit me-2"></i> Edit Site
+        </a>
+        <a href="{% url 'sites:site-list' %}" class="btn btn-light border action-btn rounded-pill px-3 shadow-sm">
+            <i class="fa fa-arrow-left me-2"></i> Go Back
+        </a>
+    </div>
+</div>
+
+<div class="profile-card">
+    <div class="profile-header">
+        <div class="d-flex align-items-center gap-4">
+            <div class="site-avatar">
+                {{ site.name|first|upper }}
+            </div>
+            <div>
+                <h2 class="fw-bold text-dark mb-1" style="letter-spacing: -1px;">{{ site.name }}</h2>
+                <div class="d-flex align-items-center gap-3">
+                    <span class="badge badge-soft-primary rounded-pill px-3 py-2">
+                        <i class="fa-solid fa-barcode me-1"></i> {{ site.code }}
+                    </span>
+                    <span class="text-muted small">
+                        <i class="fa-solid fa-earth-africa me-1"></i> {{ site.country.name }}
+                    </span>
+                    {% if site.is_active %}
+                        <span class="badge bg-success rounded-circle" style="width: 8px; height: 8px; padding: 0;" title="Active"></span>
+                        <span class="text-success small fw-medium">Active</span>
+                    {% else %}
+                        <span class="badge bg-secondary rounded-circle" style="width: 8px; height: 8px; padding: 0;" title="Inactive"></span>
+                        <span class="text-secondary small fw-medium">Inactive</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="p-4 p-md-5">
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="info-label">Organization</div>
+                <div class="info-value">{{ site.organization.name }}</div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="info-label">Created At</div>
+                <div class="info-value">{{ site.created_at|date:"F d, Y" }}</div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="info-label">Updated At</div>
+                <div class="info-value">{{ site.updated_at|date:"F d, Y" }}</div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="info-label">System Status</div>
+                <div class="info-value">
+                    {% if site.is_active %}
+                        Fully Operational
+                    {% else %}
+                        Suspended
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        {% if site.description %}
+        <div class="mt-5 pt-4 border-top">
+            <div class="info-label">Extended Description</div>
+            <div class="text-secondary" style="line-height: 1.6;">
+                {{ site.description }}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

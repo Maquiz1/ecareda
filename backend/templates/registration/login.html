@@ -1,18 +1,162 @@
-{% extends "base_public.html" %}
-{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>e-Careda | Login</title>
+    <!-- Include the header for bootstrap and fonts -->
+    {% include 'partials/header.html' %}
+    <style>
+        body {
+            /* Animated gradient background */
+            background: linear-gradient(-45deg, #0d6efd, #6610f2, #6f42c1, #d63384, #0dcaf0);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+        }
 
-<div class="row justify-content-center">
-    <div class="col-md-4">
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-        <h3 class="mb-4">Login</h3>
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            text-align: center;
+            color: #fff;
+            animation: slideUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-logo {
+            font-size: 48px;
+            margin-bottom: 10px;
+            color: #fff;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .login-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 24px;
+        }
+
+        .login-subtitle {
+            font-weight: 300;
+            margin-bottom: 30px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .form-floating {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2) !important;
+            color: #fff !important;
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.2) !important;
+            border-color: #fff !important;
+            box-shadow: 0 0 10px rgba(255,255,255,0.5) !important;
+            color: #fff !important;
+        }
+
+        .form-floating label {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Fix autocomplete background for chrome */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+            transition: background-color 5000s ease-in-out 0s;
+            -webkit-text-fill-color: #fff !important;
+        }
+
+        .btn-login {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            color: #fff;
+            padding: 12px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .btn-login:hover {
+            background: #fff;
+            color: #0d6efd;
+            box-shadow: 0 0 15px rgba(255,255,255,0.6);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glass-card">
+        <div class="login-logo">
+            <i class="fa-solid fa-book-medical"></i>
+        </div>
+        <h2 class="login-title">e-Careda</h2>
+        <p class="login-subtitle">Clinical Research Data Platform</p>
 
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button class="btn btn-primary w-100">Login</button>
+            
+            {% if form.errors %}
+                <div class="alert alert-danger p-2" style="background: rgba(220, 53, 69, 0.2); border: none; color: #fff;">
+                    <small><i class="fa fa-exclamation-triangle"></i> Invalid username or password.</small>
+                </div>
+            {% endif %}
+
+            <div class="form-floating">
+                <input type="text" name="username" class="form-control" id="id_username" placeholder="Username" required autofocus>
+                <label for="id_username">Username</label>
+            </div>
+            
+            <div class="form-floating">
+                <input type="password" name="password" class="form-control" id="id_password" placeholder="Password" required>
+                <label for="id_password">Password</label>
+            </div>
+
+            <button type="submit" class="btn btn-login">
+                SIGN IN <i class="fa fa-arrow-right ms-2"></i>
+            </button>
         </form>
-
     </div>
-</div>
 
-{% endblock %}
+</body>
+</html>

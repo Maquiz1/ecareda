@@ -16,9 +16,15 @@ Organizations
         <span class="badge bg-secondary">{{ organizations|length }}</span>
     </h4>
 
-    <a href="#" class="btn btn-primary btn-sm">
-        <i class="fa fa-plus me-1"></i> Add Organization
-    </a>
+    <div class="d-flex gap-2">
+        <a href="{% url 'organizations:organization-create' %}"
+            class="btn btn-primary btn-sm d-flex align-items-center">
+            <i class="fa fa-plus me-1"></i> Add Organization
+        </a>
+        <a href="{% url 'dashboard:dashboard' %}" class="btn btn-outline-secondary btn-sm d-flex align-items-center">
+            <i class="fa fa-arrow-left me-1"></i> Dashboard
+        </a>
+    </div>
 
 
 </div>
@@ -71,8 +77,14 @@ Organizations
 
                 <td class="text-end">
 
+                    <a href="{% url 'organizations:organization-edit' organization.pk %}"
+                        class="btn btn-sm btn-outline-primary me-1">
+                        <i class="fa fa-edit"></i>
+                        Edit
+                    </a>
+
                     <a href="{% url 'organizations:organization-detail' organization.pk %}"
-                        class="btn btn-sm btn-outline-primary">
+                        class="btn btn-sm btn-outline-info">
 
                         <i class="fa fa-eye"></i>
                         View

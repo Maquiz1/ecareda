@@ -1,21 +1,119 @@
-<!-- sites_list.html -->
 {% extends "base.html" %}
 
-{% block title %}
-Project Sites
-{% endblock %}
+{% block title %}Sites | Manage{% endblock %}
 
 {% block content %}
-<h1>Site List ({{ sites | length }})</h1>
-<ul>
-    {% for site in sites %}
-    <li>{{ forloop.counter }}. 
-        <a href="{% url 'sites:site-detail' site.pk %}">
-            {{ site.name }} - Created on {{ site.created_at }} - Project {{ site.project }}
+<style>
+    .sites-card {
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        border: 1px solid rgba(0,0,0,0.04);
+        padding: 24px;
+        animation: fadeIn 0.4s ease forwards;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .custom-table th {
+        background-color: #f8fafc;
+        color: #475569;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        padding: 16px;
+        border-bottom: 2px solid #e2e8f0;
+    }
+    .custom-table td {
+        padding: 16px;
+        vertical-align: middle;
+        color: #334155;
+        border-bottom: 1px solid #f1f5f9;
+    }
+    .custom-table tr:hover {
+        background-color: #f8fafc;
+    }
+    .badge-soft-success { background: #dcfce7; color: #166534; }
+    .badge-soft-secondary { background: #f1f5f9; color: #475569; }
+</style>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="fw-bold text-dark mb-1">Project Sites</h3>
+        <p class="text-muted mb-0">Manage and monitor all active sites in the organization.</p>
+    </div>
+    <div class="d-flex gap-2">
+        <a href="{% url 'sites:site-create' %}" class="btn btn-primary d-flex align-items-center gap-2" style="border-radius: 8px; padding: 10px 20px;">
+            <i class="fa fa-plus"></i> Add Site
         </a>
-    </li>    
-    {% empty %}
-    <li>No sites found.</li>
-    {% endfor %}
-</ul>
+        <a href="{% url 'dashboard:dashboard' %}" class="btn btn-outline-secondary d-flex align-items-center gap-2" style="border-radius: 8px; padding: 10px 20px;">
+            <i class="fa fa-arrow-left"></i> Dashboard
+        </a>
+    </div>
+</div>
+
+<div class="sites-card">
+    <div class="table-responsive">
+        <table class="table custom-table mb-0">
+            <thead>
+                <tr>
+                    <th>Site Name</th>
+                    <th>Code</th>
+                    <th>Country</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for site in sites %}
+                <tr>
+                    <td>
+                        <div class="fw-bold text-dark">{{ site.name }}</div>
+                    </td>
+                    <td>
+                        <span class="badge badge-soft-secondary rounded-pill px-3">{{ site.code }}</span>
+                    </td>
+                    <td>{{ site.country.name }}</td>
+                    <td>
+                        {% if site.is_active %}
+                            <span class="badge badge-soft-success rounded-pill px-3">Active</span>
+                        {% else %}
+                            <span class="badge bg-light text-muted rounded-pill px-3 border">Inactive</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="text-muted small">
+                            <i class="fa-regular fa-clock me-1"></i> {{ site.created_at|date:"M d, Y" }}
+                        </div>
+                    </td>
+                    <td class="text-end">
+                        <div class="d-flex justify-content-end gap-2">
+                            <a href="{% url 'sites:site-edit' site.pk %}" class="btn btn-sm btn-outline-primary" style="border-radius: 6px;" title="Edit Site">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a href="{% url 'sites:site-detail' site.pk %}" class="btn btn-sm btn-light border" style="border-radius: 6px;" title="View Details">
+                                <i class="fa fa-eye text-muted"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center py-5">
+                        <div class="text-muted">
+                            <i class="fa-solid fa-map-location-dot fa-3x mb-3 opacity-25"></i>
+                            <h5>No Sites Found</h5>
+                            <p>Get started by creating your first project site.</p>
+                            <a href="{% url 'sites:site-create' %}" class="btn btn-primary btn-sm mt-2">Create Site</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}
