@@ -207,13 +207,17 @@ ORGANIZATION_CODE = "NIMR-MB"
 PROJECT_CODE = "DREAM-TB"
 
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://penplus.muhimbili.nimr.or.tz",
-    "https://www.penplus.muhimbili.nimr.or.tz",
-]
+if not DEBUG:
+    CSRF_TRUSTED_ORIGINS = [
+        "https://penplus.muhimbili.nimr.or.tz",
+        "https://www.penplus.muhimbili.nimr.or.tz",
+    ]
 
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+else:
+    SECURE_SSL_REDIRECT = False
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False

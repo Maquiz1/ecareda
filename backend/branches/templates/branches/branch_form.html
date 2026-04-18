@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}{{ action_title }} | ecareda{% endblock %}
+
+{% block content %}
+<style>
+    .glass-form-container {
+        max-width: 800px;
+        margin: 20px auto;
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+        border: 1px solid rgba(0,0,0,0.05);
+        overflow: hidden;
+        animation: fadeIn 0.5s ease-out;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .form-header {
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        padding: 30px 40px;
+        color: white;
+    }
+    .form-body {
+        padding: 40px;
+    }
+    .floating-label-group {
+        position: relative;
+        margin-bottom: 25px;
+    }
+    .form-control {
+        border-radius: 10px;
+        padding: 12px 15px;
+        border: 1px solid #e2e8f0;
+        transition: all 0.3s;
+    }
+    .form-control:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+    }
+    .btn-submit {
+        background: #3b82f6;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 10px;
+        font-weight: 600;
+        border: none;
+        transition: all 0.3s;
+    }
+    .btn-submit:hover {
+        background: #2563eb;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+    }
+</style>
+
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'dashboard:dashboard' %}" class="text-decoration-none">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'branches:branches-list' %}" class="text-decoration-none">Branches</a></li>
+        <li class="breadcrumb-item active">{{ action_title }}</li>
+    </ol>
+</nav>
+
+<div class="glass-form-container">
+    <div class="form-header">
+        <h3 class="fw-bold mb-1">
+            <i class="fa-solid fa-code-branch me-2"></i> {{ action_title }}
+        </h3>
+        <p class="mb-0 opacity-75">Fill in the details below to manage organization branches.</p>
+    </div>
+
+    <div class="form-body">
+        <form method="post" novalidate>
+            {% csrf_token %}
+            
+            <div class="row g-4">
+                <div class="col-md-8">
+                    <div class="floating-label-group">
+                        <label class="form-label fw-semibold text-dark small">Branch Name</label>
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                            <div class="text-danger small mt-1">{{ form.name.errors|join:", " }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="floating-label-group">
+                        <label class="form-label fw-semibold text-dark small">Branch Code</label>
+                        {{ form.code }}
+                        {% if form.code.errors %}
+                            <div class="text-danger small mt-1">{{ form.code.errors|join:", " }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="col-12 mt-2">
+                    <div class="form-check form-switch p-0 d-flex align-items-center gap-3">
+                        <label class="form-check-label fw-semibold text-dark small mb-0" for="{{ form.is_active.id_for_label }}">Active Status</label>
+                        {{ form.is_active }}
+                    </div>
+                </div>
+
+                <div class="col-12 mt-5 border-top pt-4">
+                    <div class="d-flex justify-content-end gap-3">
+                        <a href="{% url 'branches:branches-list' %}" class="btn btn-light px-4" style="border-radius: 10px;">Cancel</a>
+                        <button type="submit" class="btn btn-submit">
+                            <i class="fa fa-save me-2"></i> {{ action_button }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
