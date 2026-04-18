@@ -11,3 +11,11 @@ def set_current_user(user):
 
 def get_current_user():
     return getattr(_thread_locals, "user", None)
+
+
+def set_current_org(org_id):
+    _thread_locals.org_id = org_id
+
+
+def get_current_org():
+    return getattr(_thread_locals, "org_id", None)

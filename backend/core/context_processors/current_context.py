@@ -20,6 +20,6 @@ def current_context(request):
 
         "current_project": current_project,
         "current_org": current_org,
-        "user_projects": Project.objects.all(),
+        "user_projects": Project.objects.filter(organization_id=org_id) if org_id else Project.objects.all(),
         "user_orgs": Organization.objects.all(),
     }
