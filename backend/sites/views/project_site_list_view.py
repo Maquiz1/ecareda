@@ -10,10 +10,9 @@ class SiteListView(ListView):
     context_object_name = "sites"
     
     def get_queryset(self):
-        return (
-            Site.objects
-            # .filter(is_deleted=False)
-            # .select_related("site", "project")
-            .order_by("project","name")
-        )
+        org_id = self.request.session.get("org_id")
+        qs = Site.objects.all()
+        if org_id:
+            qs = qs.filter(organization_id=org_id)
+        return qs.order_by("project", "name")
     

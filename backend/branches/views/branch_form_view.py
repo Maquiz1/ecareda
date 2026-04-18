@@ -15,30 +15,38 @@ def branch_form(request, pk=None):
         action_button = "Create Branch"
         success_message = "Branch created successfully."
 
+    context = {
+        'form': None,
+        'action_title': action_title,
+        'action_button': action_button,
+        'branch': branch
+    }
+
     if request.method == "POST":
         form = BranchForm(request.POST, instance=branch)
+        context['form'] = form
         if form.is_valid():
             new_branch = form.save(commit=False)
             
             # Inject organization from session or user profile (multi-tenancy)
             if not new_branch.organization_id:
                 org_id = request.session.get('org_id')
-                if not org_id and hasattr(request.user, 'organization'):
-                    org_id = request.user.organization.id
+                if not org_id:
+                    user_org = getattr(request.user, 'organization', None)
+                    if user_org:
+                        org_id = user_org.id
                 
                 if org_id:
                     new_branch.organization_id = org_id
+                else:
+                    messages.error(request, "Error: No organization found for this user. Cannot create branch.")
+                    return render(request, 'branches/branch_form.html', context)
             
             new_branch.save()
             messages.success(request, success_message)
             return redirect('branches:branch-detail', pk=new_branch.pk)
     else:
         form = BranchForm(instance=branch)
+        context['form'] = form
 
-    context = {
-        'form': form,
-        'action_title': action_title,
-        'action_button': action_button,
-        'branch': branch
-    }
     return render(request, 'branches/branch_form.html', context)

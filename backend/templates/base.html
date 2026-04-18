@@ -40,6 +40,24 @@
             <div class="content">
 
                 <div class="page-card">
+                    
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show mb-4 shadow-sm border-0 rounded-3" role="alert">
+                                <div class="d-flex align-items-center">
+                                    {% if message.tags == 'success' %}
+                                        <i class="fa-solid fa-check-circle me-2"></i>
+                                    {% elif message.tags == 'error' %}
+                                        <i class="fa-solid fa-circle-exclamation me-2"></i>
+                                    {% else %}
+                                        <i class="fa-solid fa-circle-info me-2"></i>
+                                    {% endif %}
+                                    <div class="fw-semibold">{{ message }}</div>
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
 
                     {% block content %}
                     {% endblock %}

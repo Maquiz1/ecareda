@@ -8,3 +8,10 @@ class SiteDetailView(DetailView):
     model = Site
     template_name = "sites/site_detail.html"
     context_object_name = "site"
+
+    def get_queryset(self):
+        org_id = self.request.session.get("org_id")
+        if org_id:
+            return Site.objects.filter(organization_id=org_id)
+        return Site.objects.none()
+

@@ -16,6 +16,12 @@ urlpatterns = [
     ),
 
     path(
+        "select-organization/",
+        views.select_organization,
+        name="select_organization",
+    ),
+
+    path(
         "set-project/<int:project_id>/",
         views.set_project,
         name="set_project",

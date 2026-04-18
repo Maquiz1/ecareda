@@ -8,3 +8,10 @@ class ProjectDetailView(DetailView):
     model = Project
     template_name = "projects/project_detail.html"
     context_object_name = "project"
+
+    def get_queryset(self):
+        org_id = self.request.session.get("org_id")
+        if org_id:
+            return Project.objects.filter(organization_id=org_id)
+        return Project.objects.none()
+
