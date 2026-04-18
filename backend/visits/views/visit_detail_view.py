@@ -10,6 +10,19 @@ class VisitDetailView(LoginRequiredMixin, DetailView):
     template_name = "visits/visit_detail.html"
     context_object_name = "visit"
 
+    def get_queryset(self):
+        org_id = self.request.session.get("org_id")
+        project_id = self.request.session.get("project_id")
+        
+        qs = Visit.objects.all()
+        
+        if org_id:
+            qs = qs.filter(subject__organization_id=org_id)
+        if project_id:
+            qs = qs.filter(subject__project_id=project_id)
+            
+        return qs
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 

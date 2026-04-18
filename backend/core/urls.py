@@ -22,9 +22,21 @@ urlpatterns = [
     ),
 
     path(
-        "set-project/<int:project_id>/",
+        "set_project/<int:project_id>/",
         views.set_project,
         name="set_project",
+    ),
+
+    path(
+        "set-country/<int:country_id>/",
+        views.set_country,
+        name="set_country",
+    ),
+
+    path(
+        "set-site/<int:site_id>/",
+        views.set_site,
+        name="set_site",
     ),
 
 ]

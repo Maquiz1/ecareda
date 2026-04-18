@@ -10,9 +10,17 @@ class VisitListView(LoginRequiredMixin, ListView):
     context_object_name = "visits"
     
     def get_queryset(self):
-        return (
-            Visit.objects
-            # .filter(is_deleted=False)
-            # .select_related("site", "project")
-            .order_by("subject_id")
-        )
+        org_id = self.request.session.get("org_id")
+        project_id = self.request.session.get("project_id")
+        site_id = self.request.session.get("site_id")
+        
+        qs = Visit.objects.all()
+        
+        if org_id:
+            qs = qs.filter(subject__organization_id=org_id)
+        if project_id:
+            qs = qs.filter(subject__project_id=project_id)
+        if site_id:
+            qs = qs.filter(subject__site_id=site_id)
+            
+        return qs.order_by("subject_id")

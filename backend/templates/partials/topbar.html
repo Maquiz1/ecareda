@@ -42,6 +42,44 @@
 
 
 
+        <!-- COUNTRY -->
+
+        <div class="dropdown">
+
+            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+
+                <i class="fa fa-globe me-1"></i>
+
+                {% if current_country %}
+                COUNTRY: <span class="badge bg-secondary text-dark ms-2">{{ current_country.code }}</span>
+                {% else %}
+                Select Country
+                {% endif %}
+
+            </button>
+
+            <ul class="dropdown-menu">
+
+                {% for country in user_countries %}
+
+                <li>
+
+                    <a class="dropdown-item" href="{% url 'core:set_country' country.id %}">
+
+                        {{ country.code }} - {{ country.name }}
+
+                    </a>
+
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+        </div>
+
+
+
         <!-- PROJECT -->
 
         <div class="dropdown">
@@ -77,6 +115,44 @@
             </ul>
 
         </div>
+
+
+        <!-- SITE -->
+
+        <div class="dropdown">
+
+            <button class="btn btn-sm btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+
+                <i class="fa fa-hospital me-1"></i>
+
+                {% if current_site %}
+                SITE: <span class="badge bg-secondary text-dark ms-2">{{ current_site.code }}</span>
+                {% else %}
+                Select Site
+                {% endif %}
+
+            </button>
+
+            <ul class="dropdown-menu">
+
+                {% for site in user_sites %}
+
+                <li>
+
+                    <a class="dropdown-item" href="{% url 'core:set_site' site.id %}">
+
+                        {{ site.code }} - {{ site.name }}
+
+                    </a>
+
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+        </div>
+
 
     </div>
 
